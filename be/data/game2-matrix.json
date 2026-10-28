@@ -1,0 +1,239 @@
+{
+  "title": "Từ khóa kháng chiến",
+  "subtitle": "Tìm những từ khóa về mục tiêu và sức mạnh của cả nước",
+  "rounds": [
+    {
+      "roundNumber": 1,
+      "category": "Độc lập · Tự do · Thống nhất",
+      "quote": "Miền Nam là tiền tuyến lớn, miền Bắc là hậu phương lớn.",
+      "grid": [
+        [
+          "D",
+          "O",
+          "C",
+          "L",
+          "A",
+          "P",
+          "Q",
+          "X",
+          "E",
+          "L",
+          "S",
+          "H"
+        ],
+        [
+          "R",
+          "Z",
+          "H",
+          "P",
+          "X",
+          "F",
+          "N",
+          "V",
+          "D",
+          "L",
+          "T",
+          "A"
+        ],
+        [
+          "I",
+          "T",
+          "A",
+          "J",
+          "S",
+          "B",
+          "K",
+          "T",
+          "C",
+          "L",
+          "U",
+          "U"
+        ],
+        [
+          "Z",
+          "U",
+          "T",
+          "D",
+          "N",
+          "X",
+          "H",
+          "R",
+          "B",
+          "L",
+          "V",
+          "P"
+        ],
+        [
+          "Q",
+          "D",
+          "M",
+          "X",
+          "I",
+          "T",
+          "E",
+          "P",
+          "A",
+          "L",
+          "W",
+          "H"
+        ],
+        [
+          "H",
+          "O",
+          "F",
+          "R",
+          "D",
+          "P",
+          "B",
+          "N",
+          "Z",
+          "L",
+          "X",
+          "U"
+        ],
+        [
+          "Y",
+          "L",
+          "Y",
+          "L",
+          "Y",
+          "L",
+          "Y",
+          "L",
+          "Y",
+          "L",
+          "Y",
+          "O"
+        ],
+        [
+          "P",
+          "D",
+          "R",
+          "F",
+          "T",
+          "H",
+          "V",
+          "J",
+          "X",
+          "L",
+          "Z",
+          "N"
+        ],
+        [
+          "G",
+          "V",
+          "K",
+          "Z",
+          "O",
+          "D",
+          "S",
+          "H",
+          "W",
+          "L",
+          "A",
+          "G"
+        ],
+        [
+          "X",
+          "N",
+          "D",
+          "T",
+          "J",
+          "Z",
+          "P",
+          "F",
+          "V",
+          "L",
+          "B",
+          "R"
+        ],
+        [
+          "O",
+          "T",
+          "H",
+          "O",
+          "N",
+          "G",
+          "N",
+          "H",
+          "A",
+          "T",
+          "C",
+          "T"
+        ],
+        [
+          "F",
+          "X",
+          "P",
+          "H",
+          "Z",
+          "R",
+          "J",
+          "B",
+          "T",
+          "L",
+          "D",
+          "V"
+        ]
+      ],
+      "keywords": [
+        {
+          "id": "kw1",
+          "word": "ĐỘC LẬP",
+          "clue": "Mục tiêu dân tộc gắn liền với tự do và chủ quyền.",
+          "cells": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "id": "kw2",
+          "word": "TỰ DO",
+          "clue": "Giá trị đi cùng độc lập trong Lời kêu gọi ngày 17–7–1966.",
+          "cells": [
+            25,
+            37,
+            49,
+            61
+          ]
+        },
+        {
+          "id": "kw3",
+          "word": "THỐNG NHẤT",
+          "clue": "Khát vọng đưa hai miền về một đất nước.",
+          "cells": [
+            121,
+            122,
+            123,
+            124,
+            125,
+            126,
+            127,
+            128,
+            129
+          ]
+        },
+        {
+          "id": "kw4",
+          "word": "HẬU PHƯƠNG",
+          "clue": "Vai trò của miền Bắc đối với tiền tuyến lớn miền Nam.",
+          "cells": [
+            11,
+            23,
+            35,
+            47,
+            59,
+            71,
+            83,
+            95,
+            107
+          ]
+        }
+      ]
+    }
+  ]
+}

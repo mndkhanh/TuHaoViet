@@ -1,0 +1,48 @@
+{
+  "title": "Nối cặp lịch sử",
+  "subtitle": "Kết nối sự kiện và ý nghĩa lịch sử giai đoạn 1965–1975",
+  "description": "Người chơi cần nối đúng 4 cặp trong mỗi vòng. Chỉ khi ghép đúng 100% mới được tính hoàn thành. Nếu có cặp sai, người chơi phải nối lại đến khi đúng toàn bộ.",
+  "source_note": "Biên soạn theo SOURCE.md: Lãnh đạo cách mạng cả nước 1965–1975.",
+  "rules": [
+    "Mỗi vòng có 4 thẻ bên trái và 4 thẻ bên phải.",
+    "Bấm một thẻ bên trái, sau đó bấm thẻ bên phải để nối cặp.",
+    "Một thẻ bên phải chỉ được nối với một thẻ bên trái.",
+    "Nhấn Kiểm tra khi đã nối đủ 4 cặp.",
+    "Ghép đúng 100% mới hoàn thành vòng chơi; nếu sai, hãy nối lại."
+  ],
+  "rounds": [
+    {
+      "id": "round-lich-su",
+      "order": 1,
+      "category": "Dấu mốc 1965–1975",
+      "instruction": "Nối mỗi sự kiện với thời điểm tương ứng.",
+      "source": "SOURCE.md",
+      "pairs": [
+        {
+          "id": "history-p0",
+          "left": "Hội nghị Trung ương 11 và 12",
+          "right": "Năm 1965",
+          "explain": "Hội nghị Trung ương 11 và 12: Năm 1965."
+        },
+        {
+          "id": "history-p1",
+          "left": "Tổng tiến công và nổi dậy Mậu Thân",
+          "right": "Năm 1968",
+          "explain": "Tổng tiến công và nổi dậy Mậu Thân: Năm 1968."
+        },
+        {
+          "id": "history-p2",
+          "left": "Ký kết Hiệp định Paris",
+          "right": "27–1–1973",
+          "explain": "Ký kết Hiệp định Paris: 27–1–1973."
+        },
+        {
+          "id": "history-p3",
+          "left": "Giải phóng Sài Gòn",
+          "right": "30–4–1975",
+          "explain": "Giải phóng Sài Gòn: 30–4–1975."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "tu-hao-viet",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["start"],
+      "cwd": "be",
+      "port": 3000
+    }
+  ]
+}

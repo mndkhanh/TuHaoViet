@@ -1,0 +1,22 @@
+{
+    "name":  "tu-hao-viet",
+    "version":  "1.0.0",
+    "description":  "Tự Hào Việt — Khám phá lịch sử Việt Nam 1965–1975 qua các trò chơi kiến thức.",
+    "main":  "server.js",
+    "type":  "commonjs",
+    "scripts":  {
+                    "start":  "node server.js",
+                    "dev":  "node server.js"
+                },
+    "engines":  {
+                    "node":  "\u003e=18"
+                },
+    "keywords":  [
+                     "vietnam-history",
+                     "education",
+                     "1965-1975",
+                     "tu-hao-viet"
+                 ],
+    "author":  "",
+    "license":  "MIT"
+}

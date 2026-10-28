@@ -1,0 +1,20 @@
+# Version control / deps (installed fresh in the image)
+.git
+.gitignore
+node_modules
+be/node_modules
+fe/node_modules
+
+# Dev-only mirror of the frontend. In production the server falls back to ../fe,
+# so excluding be/public guarantees the deployed site serves fe/ (the single source of truth).
+be/public
+
+# Runtime data must NOT ship with the image — deploy starts with an empty leaderboard.
+# The server recreates be/data/participants.json as { "participants": [] } on first run.
+be/data/participants.json
+be/data/participants.json.tmp
+**/*.tmp
+
+# Misc
+*.log
+.DS_Store

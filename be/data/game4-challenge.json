@@ -1,0 +1,152 @@
+{
+  "title": "Đường tới toàn thắng",
+  "subtitle": "Vượt tám trạm để kết nối những dấu mốc của hành trình 1965–1975",
+  "finalCode": "TOÀN THẮNG",
+  "finalMessage": "Bạn đã hoàn thành hành trình từ quyết tâm kháng chiến năm 1965 đến thắng lợi mùa Xuân 1975. Hiểu quá khứ, trân trọng hòa bình và tiếp bước tương lai.",
+  "stations": [
+    {
+      "id": "s1",
+      "type": "single",
+      "title": "Quyết tâm chiến lược",
+      "short": "1965",
+      "kicker": "Mục tiêu chiến lược được xác định trong năm 1965 là gì?",
+      "options": [
+        "Bảo vệ miền Bắc, giải phóng miền Nam, tiến tới thống nhất",
+        "Ngừng chi viện cho miền Nam",
+        "Chỉ phát triển kinh tế trong hòa bình",
+        "Từ bỏ đấu tranh ngoại giao"
+      ],
+      "answer": 0,
+      "hint": "Gắn nhiệm vụ của hai miền với mục tiêu chung của cả nước.",
+      "context": "Hai nhiệm vụ bảo vệ miền Bắc và giải phóng miền Nam gắn bó mật thiết.",
+      "piece": "T"
+    },
+    {
+      "id": "s2",
+      "type": "single",
+      "title": "Hậu phương lớn",
+      "short": "MIỀN BẮC",
+      "kicker": "Nhiệm vụ nào thuộc vai trò hậu phương miền Bắc?",
+      "options": [
+        "Chỉ tập trung vào thương lượng",
+        "Vừa sản xuất, vừa chiến đấu và chi viện miền Nam",
+        "Dừng xây dựng kinh tế",
+        "Tách rời nhiệm vụ miền Nam"
+      ],
+      "answer": 1,
+      "hint": "Nhiệm vụ kinh tế, quốc phòng và chi viện được thực hiện đồng thời.",
+      "context": "Miền Bắc chuyển hướng kinh tế, bảo vệ hậu phương và chi viện tiền tuyến.",
+      "piece": "O"
+    },
+    {
+      "id": "s3",
+      "type": "single",
+      "title": "Bước ngoặt Mậu Thân",
+      "short": "1968",
+      "kicker": "Sau bước ngoặt Mậu Thân 1968, Mỹ phải chấp nhận điều gì?",
+      "options": [
+        "Rút toàn bộ quân ngay trong tháng 1–1968",
+        "Ký Hiệp định Paris ngay năm 1968",
+        "Đàm phán tại Paris từ tháng 5–1968",
+        "Chấm dứt mọi hoạt động quân sự trên toàn thế giới"
+      ],
+      "answer": 2,
+      "hint": "Bước chuyển diễn ra trên mặt trận ngoại giao.",
+      "context": "Đàm phán tại Paris bắt đầu từ tháng 5–1968; hiệp định được ký năm 1973.",
+      "piece": "A"
+    },
+    {
+      "id": "s4",
+      "type": "multi",
+      "title": "Ba mặt trận",
+      "short": "KẾT HỢP",
+      "kicker": "Chọn ba hình thức đấu tranh được kết hợp trong cuộc kháng chiến.",
+      "options": [
+        "Quân sự",
+        "Chính trị",
+        "Ngoại giao",
+        "Từ bỏ quyền tự quyết"
+      ],
+      "answers": [
+        0,
+        1,
+        2
+      ],
+      "hint": "Ba mặt trận hỗ trợ lẫn nhau; không từ bỏ quyền tự quyết.",
+      "context": "Đấu tranh quân sự, chính trị và ngoại giao tạo sức mạnh tổng hợp.",
+      "piece": "N"
+    },
+    {
+      "id": "s5",
+      "type": "single",
+      "title": "Hiệp định hòa bình",
+      "short": "1973",
+      "kicker": "Hiệp định Paris được ký vào ngày nào?",
+      "options": [
+        "27–1–1973",
+        "30–4–1975",
+        "8–3–1965",
+        "26–4–1975"
+      ],
+      "answer": 0,
+      "hint": "Hiệp định được ký vào tháng 1 năm 1973.",
+      "context": "Ngày 27–1–1973, Hiệp định về chấm dứt chiến tranh, lập lại hòa bình ở Việt Nam được ký kết.",
+      "piece": "T"
+    },
+    {
+      "id": "s6",
+      "type": "single",
+      "title": "Thời cơ chiến lược",
+      "short": "PHƯỚC LONG",
+      "kicker": "Chiến thắng Phước Long ngày 6–1–1975 có ý nghĩa gì?",
+      "options": [
+        "Kết thúc toàn bộ cuộc kháng chiến ngay lập tức",
+        "Làm cơ sở đánh giá thời cơ giải phóng hoàn toàn miền Nam",
+        "Mở đầu đàm phán Paris",
+        "Mở đầu cuộc chiến tranh phá hoại miền Bắc"
+      ],
+      "answer": 1,
+      "hint": "Đây là một đòn thăm dò chiến lược.",
+      "context": "Chiến thắng củng cố nhận định về khả năng và thời cơ giải phóng hoàn toàn miền Nam.",
+      "piece": "H"
+    },
+    {
+      "id": "s7",
+      "type": "order-two",
+      "title": "Những đòn tiến công",
+      "short": "XUÂN 1975",
+      "kicker": "Điền hai địa danh theo thứ tự các chiến dịch mùa Xuân 1975.",
+      "template": "Mở đầu ở ___, tiếp đó phát triển thắng lợi tại ___ và Đà Nẵng.",
+      "tiles": [
+        "Huế",
+        "Tây Nguyên",
+        "Paris",
+        "Phước Long"
+      ],
+      "answers": [
+        1,
+        0
+      ],
+      "hint": "Chiến dịch mở đầu có trận Buôn Ma Thuột; Huế được giải phóng sau đó.",
+      "context": "Tây Nguyên mở đầu cuộc Tổng tiến công; tiếp đó là Huế–Đà Nẵng và Chiến dịch Hồ Chí Minh.",
+      "piece": "A"
+    },
+    {
+      "id": "s8",
+      "type": "single",
+      "title": "Ngày toàn thắng",
+      "short": "30–4–1975",
+      "kicker": "Cờ chiến thắng được cắm trên dinh Độc Lập lúc nào ngày 30–4–1975?",
+      "options": [
+        "6 giờ sáng",
+        "9 giờ sáng",
+        "11 giờ 30 phút",
+        "18 giờ"
+      ],
+      "answer": 2,
+      "hint": "Thời điểm vào gần giữa trưa.",
+      "context": "11 giờ 30 phút ngày 30–4–1975 là dấu mốc chiến thắng tại dinh Độc Lập.",
+      "piece": "N"
+    }
+  ]
+}

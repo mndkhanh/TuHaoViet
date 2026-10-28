@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Đường tới toàn thắng | Tự Hào Việt</title>
+  
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="stylesheet" href="/vietfamily-theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-container": "#AE151B",
+            "inverse-surface": "#2A1C19",
+            "secondary-fixed-dim": "#B88729",
+            "tertiary-fixed-dim": "#F0A79B",
+            "surface-bright": "#FCF7ED",
+            "inverse-primary": "#F0A79B",
+            "secondary-fixed": "#FAE9B7",
+            "on-primary-fixed": "#2A1C19",
+            "on-primary-fixed-variant": "#8F1017",
+            "secondary-container": "#B88729",
+            "tertiary": "#8F1017",
+            "background": "#FCF7ED",
+            "on-tertiary-fixed-variant": "#8F1017",
+            "surface-dim": "#E7D8D2",
+            "primary-fixed-dim": "#F0A79B",
+            "surface-container-high": "#F1E7E2",
+            "on-primary": "#ffffff",
+            "surface-variant": "#E7D8D2",
+            "surface-container": "#FFFFFF",
+            "secondary": "#704811",
+            "on-tertiary-fixed": "#2A1C19",
+            "on-background": "#2A1C19",
+            "tertiary-fixed": "#F8E6DC",
+            "error": "#830D13",
+            "surface": "#FCF7ED",
+            "surface-container-highest": "#E7D8D2",
+            "outline-variant": "#E7D8D2",
+            "error-container": "#F8E6DC",
+            "on-error-container": "#8F1017",
+            "on-surface-variant": "#6F5750",
+            "on-tertiary": "#ffffff",
+            "on-secondary-container": "#704811",
+            "outline": "#C9B7B0",
+            "on-secondary-fixed": "#2A1C19",
+            "on-primary-container": "#FCF7ED",
+            "on-surface": "#2A1C19",
+            "tertiary-container": "#830D13",
+            "surface-container-low": "#FCF7ED",
+            "on-tertiary-container": "#FCF7ED",
+            "on-secondary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "surface-tint": "#AE151B",
+            "primary-fixed": "#F8E6DC",
+            "primary": "#AE151B",
+            "on-secondary-fixed-variant": "#704811",
+            "inverse-on-surface": "#FCEFEA",
+            "on-error": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "unit": "8px",
+            "margin-mobile": "16px",
+            "margin-desktop": "48px",
+            "gutter": "24px",
+            "container-max": "1200px"
+          },
+          "fontFamily": {
+            "label-sm": ["Hanken Grotesk"],
+            "headline-md": ["Bricolage Grotesque"],
+            "body-md": ["Hanken Grotesk"],
+            "headline-lg-mobile": ["Bricolage Grotesque"],
+            "headline-lg": ["Bricolage Grotesque"],
+            "headline-display": ["Bricolage Grotesque"],
+            "body-lg": ["Hanken Grotesk"]
+          },
+          "fontSize": {
+            "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "1.3", "fontWeight": "700"}],
+            "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+            "headline-display": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+    }
+    .silk-texture {
+      background-image: radial-gradient(#ffffff10 1px, transparent 1px);
+      background-size: 4px 4px;
+    }
+    .parchment-bg {
+      background-color: #FCF7ED;
+      background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+    }
+    .star-divider::before, .star-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #AE151B;
+    }
+    
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 50;
+      transform: translate(-50%, 20px);
+      max-width: min(540px, calc(100% - 32px));
+      padding: 13px 18px;
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(180, 0, 6, 0.94);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+      font-weight: 700;
+    }
+    .toast.is-show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+    
+    .drag-item {
+      cursor: grab;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+    .drag-item:active {
+      cursor: grabbing;
+    }
+  </style>
+
+  <!-- Auth guard -->
+  <script>
+    (function () {
+      var AUTH_KEY = 'tuhaoviet_participant';
+      var GAME_KEY = 'currentParticipant';
+      try {
+        var p = JSON.parse(sessionStorage.getItem(AUTH_KEY)) ||
+                JSON.parse(sessionStorage.getItem(GAME_KEY));
+        if (!p || !p.id) window.location.replace('/auth');
+        else {
+          sessionStorage.setItem(AUTH_KEY, JSON.stringify(p));
+          sessionStorage.setItem(GAME_KEY, JSON.stringify(p));
+        }
+      } catch (e) { window.location.replace('/auth'); }
+    })();
+  </script>
+  <style id="vf-base">
+    body { font-family: 'Hanken Grotesk', system-ui, -apple-system, sans-serif !important; background:#FCF7ED; color:#2A1C19; }
+    h1,h2,h3,h4,h5,h6 { font-family:'Bricolage Grotesque','Hanken Grotesk',system-ui,sans-serif !important; letter-spacing:-0.02em; }
+    button, .btn, [class*='rounded'] { font-family:'Hanken Grotesk',system-ui,sans-serif; }
+  </style>
+  <link rel="icon" type="image/svg+xml" href="/assets/vietfamily/favicon.svg">
+  <link rel="icon" type="image/jpeg" href="/assets/vietfamily/969fe005-c158-47c4-919f-cb258e14e66e.jpg">
+  <link rel="apple-touch-icon" href="/assets/vietfamily/969fe005-c158-47c4-919f-cb258e14e66e.jpg">
+<link rel="stylesheet" href="/tuhaoviet.css">
+</head>
+
+<body class="parchment-bg min-h-screen flex flex-col text-on-surface font-body-md">
+
+  <!-- TopNavBar -->
+  <header class="w-full top-0 sticky border-b border-secondary-container bg-surface-bright z-50">
+    <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+      <div class="flex items-center gap-4">
+        <a href="/lobby" aria-label="Thoát" class="hover:text-primary transition-colors p-2 flex items-center">
+          <span class="material-symbols-outlined">close</span>
+        </a>
+        <h1 class="font-headline-md text-headline-md text-primary uppercase tracking-tighter">Đường tới toàn thắng</h1>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 bg-primary/10 border border-primary/30 px-3 py-1.5 rounded-full" id="timerChip" title="Thời gian còn lại">
+          <span class="material-symbols-outlined text-primary" style="font-size:1rem; font-variation-settings:'FILL' 1;">timer</span>
+          <span class="text-xs font-bold text-primary" id="gameTimer">03:00</span>
+        </div>
+        <div class="flex items-center gap-2 bg-primary/10 border border-primary/30 px-3 py-1.5 rounded-full" id="scoreChip" title="Điểm bạn sẽ nhận nếu hoàn thành ngay bây giờ">
+          <span class="material-symbols-outlined text-primary" style="font-size:1rem; font-variation-settings:'FILL' 1;">stars</span>
+          <span class="text-xs font-bold text-primary" id="scoreChipVal">Điểm: 200</span>
+        </div>
+        <span class="material-symbols-outlined text-primary cursor-pointer scale-95 active:opacity-80 transition-transform" id="navPlayerName">account_circle</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Play Area -->
+  <main class="flex-grow max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-desktop py-12" id="playPanel">
+    
+    <!-- Title Section -->
+    <div class="text-center mb-12">
+      <h1 class="font-headline-display text-headline-display text-primary mb-4" id="gameTitle">Đường tới toàn thắng</h1>
+      <div class="flex items-center justify-center gap-4 star-divider mb-2">
+        <span class="material-symbols-outlined text-secondary-fixed-dim" style="font-variation-settings: 'FILL' 1;">star</span>
+      </div>
+      <p class="font-body-lg text-body-lg text-on-surface-variant italic" id="gameSubtitle">Vượt tám trạm kiến thức để kết nối hành trình lịch sử 1965–1975</p>
+    </div>
+
+    <!-- Steps Indicator (rendered dynamically) -->
+    <div class="max-w-3xl mx-auto mb-8">
+      <div class="relative">
+        <div class="absolute left-0 right-0 top-4 h-1 bg-surface-variant z-0"></div>
+        <div id="step-bar" class="absolute left-0 top-4 h-1 bg-primary z-0 transition-all duration-500" style="width: 0%;"></div>
+        <div id="step-nodes" class="flex justify-between items-start relative z-10"></div>
+      </div>
+    </div>
+
+    <!-- Puzzle piece tray -->
+    <div id="pieceTray" class="max-w-2xl mx-auto mb-10 flex items-center justify-center gap-2 flex-wrap"></div>
+
+    <!-- Active Stage Panel Card -->
+    <div class="max-w-2xl mx-auto bg-surface-container border border-secondary-container p-8 md:p-12 shadow-md relative">
+      
+      <!-- Stage Title & Instruction -->
+      <div class="mb-8 border-b border-outline-variant pb-4">
+        <span class="text-xs font-bold text-primary tracking-widest uppercase mb-1 block" id="stageStepBadge">TRẠM 1/8</span>
+        <h2 class="font-headline-md text-headline-md text-on-surface" id="stageInstruction">
+          Đang tải trạm đầu tiên...
+        </h2>
+      </div>
+
+      <!-- Stage content body area -->
+      <div id="stage-body" class="mb-8 flex flex-col items-center">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- Action Panel & Input -->
+      <div class="flex flex-col gap-4">
+        <!-- Interactive Answers inputs -->
+        <div id="stage-input-area" class="w-full">
+          <!-- Injected text/number input depending on stage type -->
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-outline-variant/50">
+          <button id="hintBtn" class="flex-shrink-0 border-2 border-secondary text-secondary font-bold px-6 py-3 uppercase tracking-wider hover:bg-secondary hover:text-white transition-all active:scale-95 hidden flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+            Gợi ý
+          </button>
+          
+          <button id="submitStageBtn" class="flex-grow bg-primary text-on-primary font-bold py-3 uppercase tracking-wider hover:bg-tertiary transition-all active:scale-95 flex items-center justify-center gap-2">
+            Kiểm tra đáp án
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Historical Context Card (appears after solving stage) -->
+      <div id="stage-context-box" class="mt-8 p-6 bg-surface-container-high border-l-4 border-green-600 relative overflow-hidden hidden">
+        <h4 class="text-xs font-bold text-green-700 uppercase tracking-widest mb-2 flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+          Chính xác! Bối cảnh lịch sử
+        </h4>
+        <p class="font-body-md text-sm text-on-surface-variant leading-relaxed" id="stageContextText"></p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Game Completion Overlay -->
+  <main class="flex-grow hidden items-center justify-center px-margin-mobile py-24" id="completionPanel">
+    <div class="w-full max-w-md bg-white border-2 border-secondary-container p-8 text-center shadow-xl">
+      <span class="material-symbols-outlined text-secondary-fixed-dim text-6xl mb-4" style="font-variation-settings: 'FILL' 1;">home</span>
+      <h2 class="font-headline-lg text-headline-lg text-primary mb-4">Hành trình đã hoàn thành!</h2>
+
+      <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-3">Mật mã cuối</p>
+      <div class="flex items-center justify-center gap-1.5 flex-wrap mb-6" id="finalCodeReveal"></div>
+
+      <p class="font-body-md text-on-surface-variant mb-6 leading-relaxed" id="completionMsg">
+        Chúc mừng bạn đã hoàn thành thử thách Đường tới toàn thắng!
+      </p>
+      <div class="text-xl font-black text-primary mb-8" id="finalScoreVal">Điểm đạt được: 200/200</div>
+      <a class="w-full bg-primary py-4 text-on-primary font-label-sm text-label-sm text-center uppercase tracking-widest hover:bg-primary-container transition-all block" href="/lobby">
+        Trở về phòng chờ
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full py-8 mt-auto border-t border-secondary bg-inverse-surface text-secondary-fixed text-center font-label-sm text-xs">
+    © 2026 Tự Hào Việt — FPT University
+  </footer>
+
+  <div class="toast" id="challengeToast" role="status" aria-live="polite"></div>
+
+  <script src="./challenge.js"></script>
+</body>
+</html>

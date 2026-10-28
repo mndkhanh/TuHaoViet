@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Dấu mốc lịch sử | Tự Hào Việt</title>
+  
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="stylesheet" href="/vietfamily-theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-container": "#AE151B",
+            "inverse-surface": "#2A1C19",
+            "secondary-fixed-dim": "#B88729",
+            "tertiary-fixed-dim": "#F0A79B",
+            "surface-bright": "#FCF7ED",
+            "inverse-primary": "#F0A79B",
+            "secondary-fixed": "#FAE9B7",
+            "on-primary-fixed": "#2A1C19",
+            "on-primary-fixed-variant": "#8F1017",
+            "secondary-container": "#B88729",
+            "tertiary": "#8F1017",
+            "background": "#FCF7ED",
+            "on-tertiary-fixed-variant": "#8F1017",
+            "surface-dim": "#E7D8D2",
+            "primary-fixed-dim": "#F0A79B",
+            "surface-container-high": "#F1E7E2",
+            "on-primary": "#ffffff",
+            "surface-variant": "#E7D8D2",
+            "surface-container": "#FFFFFF",
+            "secondary": "#704811",
+            "on-tertiary-fixed": "#2A1C19",
+            "on-background": "#2A1C19",
+            "tertiary-fixed": "#F8E6DC",
+            "error": "#830D13",
+            "surface": "#FCF7ED",
+            "surface-container-highest": "#E7D8D2",
+            "outline-variant": "#E7D8D2",
+            "error-container": "#F8E6DC",
+            "on-error-container": "#8F1017",
+            "on-surface-variant": "#6F5750",
+            "on-tertiary": "#ffffff",
+            "on-secondary-container": "#704811",
+            "outline": "#C9B7B0",
+            "on-secondary-fixed": "#2A1C19",
+            "on-primary-container": "#FCF7ED",
+            "on-surface": "#2A1C19",
+            "tertiary-container": "#830D13",
+            "surface-container-low": "#FCF7ED",
+            "on-tertiary-container": "#FCF7ED",
+            "on-secondary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "surface-tint": "#AE151B",
+            "primary-fixed": "#F8E6DC",
+            "primary": "#AE151B",
+            "on-secondary-fixed-variant": "#704811",
+            "inverse-on-surface": "#FCEFEA",
+            "on-error": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "unit": "8px",
+            "margin-mobile": "16px",
+            "margin-desktop": "48px",
+            "gutter": "24px",
+            "container-max": "1200px"
+          },
+          "fontFamily": {
+            "label-sm": ["Hanken Grotesk"],
+            "headline-md": ["Bricolage Grotesque"],
+            "body-md": ["Hanken Grotesk"],
+            "headline-lg-mobile": ["Bricolage Grotesque"],
+            "headline-lg": ["Bricolage Grotesque"],
+            "headline-display": ["Bricolage Grotesque"],
+            "body-lg": ["Hanken Grotesk"]
+          },
+          "fontSize": {
+            "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "1.3", "fontWeight": "700"}],
+            "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+            "headline-display": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+
+  <style>
+    .silk-texture {
+      background-image: radial-gradient(circle at 2px 2px, rgba(254, 204, 0, 0.05) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+    .paper-grain {
+      background-color: #FCF7ED;
+      background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+    }
+    .custom-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+    }
+    .custom-divider::before, .custom-divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #AE151B;
+    }
+    .custom-divider:not(:empty)::before { margin-right: 1rem; }
+    .custom-divider:not(:empty)::after { margin-left: 1rem; }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Connection line styling in SVG */
+    .connection-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: visible;
+    }
+    .connection-layer path {
+      fill: none;
+      stroke: #AE151B;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-dasharray: 6 6;
+      animation: dashMove 1.5s linear infinite;
+    }
+    @keyframes dashMove {
+      to { stroke-dashoffset: -20; }
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 50;
+      transform: translate(-50%, 20px);
+      max-width: min(540px, calc(100% - 32px));
+      padding: 13px 18px;
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(180, 0, 6, 0.94);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+      font-weight: 700;
+    }
+    .toast.is-show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  </style>
+
+  <!-- Auth guard -->
+  <script>
+    (function () {
+      var AUTH_KEY = 'tuhaoviet_participant';
+      var GAME_KEY = 'currentParticipant';
+      try {
+        var p = JSON.parse(sessionStorage.getItem(AUTH_KEY)) ||
+                JSON.parse(sessionStorage.getItem(GAME_KEY));
+        if (!p || !p.id) window.location.replace('/auth');
+        else {
+          sessionStorage.setItem(AUTH_KEY, JSON.stringify(p));
+          sessionStorage.setItem(GAME_KEY, JSON.stringify(p));
+        }
+      } catch (e) { window.location.replace('/auth'); }
+    })();
+  </script>
+  <style id="vf-base">
+    body { font-family: 'Hanken Grotesk', system-ui, -apple-system, sans-serif !important; background:#FCF7ED; color:#2A1C19; }
+    h1,h2,h3,h4,h5,h6 { font-family:'Bricolage Grotesque','Hanken Grotesk',system-ui,sans-serif !important; letter-spacing:-0.02em; }
+    button, .btn, [class*='rounded'] { font-family:'Hanken Grotesk',system-ui,sans-serif; }
+  </style>
+  <link rel="icon" type="image/svg+xml" href="/assets/vietfamily/favicon.svg">
+  <link rel="icon" type="image/jpeg" href="/assets/vietfamily/969fe005-c158-47c4-919f-cb258e14e66e.jpg">
+  <link rel="apple-touch-icon" href="/assets/vietfamily/969fe005-c158-47c4-919f-cb258e14e66e.jpg">
+<link rel="stylesheet" href="/tuhaoviet.css">
+</head>
+
+<body class="paper-grain text-on-surface min-h-screen flex flex-col font-body-md">
+
+  <!-- Top Navigation Header -->
+  <header class="w-full top-0 sticky z-50 border-b border-secondary-container bg-surface-bright/90 backdrop-blur-md">
+    <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+      <div class="flex items-center gap-4">
+        <a href="/lobby" aria-label="Thoát" class="hover:text-primary transition-colors p-2 flex items-center">
+          <span class="material-symbols-outlined">close</span>
+        </a>
+        <h1 class="font-headline-md text-headline-md text-primary uppercase tracking-tighter">Dấu mốc lịch sử</h1>
+      </div>
+      <div class="flex items-center gap-gutter">
+        <div class="flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-lg border border-primary/30" id="scoreChip" title="Điểm quiz được chấm khi bạn nộp bài">
+          <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">stars</span>
+          <span class="font-label-sm text-label-sm text-primary font-bold" id="scoreChipVal">Điểm: —</span>
+        </div>
+        <div class="flex items-center gap-2 bg-secondary-container/20 px-4 py-2 rounded-lg border border-secondary-container">
+          <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">timer</span>
+          <span class="font-label-sm text-label-sm text-on-surface" id="timer">05:00</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="flex-grow flex flex-col items-center px-margin-mobile md:px-margin-desktop py-12 max-w-4xl mx-auto w-full" id="quizContent">
+    
+    <!-- Progress Indicator -->
+    <div class="w-full mb-12">
+      <div class="flex justify-between items-end mb-2">
+        <span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Tiến độ hoàn thành</span>
+        <span class="font-headline-md text-headline-md text-primary" id="progressNumbers">1 <span class="text-on-surface-variant font-body-md">/ 10</span></span>
+      </div>
+      <div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+        <div class="h-full bg-primary-container transition-all duration-700 ease-out" id="progressBarFill" style="width: 10%;"></div>
+      </div>
+    </div>
+
+    <!-- Active Question Slides Container -->
+    <div class="w-full" id="slidesContainer">
+      <!-- Dynamic Question slides will be injected here -->
+    </div>
+
+    <!-- Dynamic Options, Text Fields, and Matching boards will be injected here -->
+    <div class="w-full" id="interactiveContainer">
+      <!-- MC Grid / Fill-in fields / Matching board -->
+    </div>
+
+    <!-- Section Divider -->
+    <div class="custom-divider text-secondary-fixed-dim mb-12">
+      <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+    </div>
+
+    <!-- Navigation Actions -->
+    <div class="flex justify-between w-full mt-16 pt-8 border-t border-secondary-container">
+      <button class="flex items-center gap-2 px-8 py-3 border border-secondary text-secondary font-label-sm text-label-sm uppercase tracking-wider hover:bg-secondary-container/10 transition-all disabled:opacity-30 disabled:pointer-events-none" id="quizBackBtn">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Câu trước
+      </button>
+      
+      <div>
+        <button class="flex items-center gap-2 px-10 py-3 bg-primary text-on-primary font-label-sm text-label-sm uppercase tracking-wider hover:bg-primary-container transition-all shadow-lg shadow-primary-container/20" id="quizNextBtn">
+          Tiếp theo
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+        <button class="flex items-center gap-2 px-10 py-3 bg-primary text-on-primary font-label-sm text-label-sm uppercase tracking-wider hover:bg-primary-container transition-all shadow-lg shadow-primary-container/20 hidden" id="quizSubmitBtn">
+          Nộp bài & xem điểm
+          <span class="material-symbols-outlined">done_all</span>
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Results Screen Container (Hidden initially) -->
+  <main class="flex-grow hidden flex-col items-center px-margin-mobile md:px-margin-desktop py-12 max-w-2xl mx-auto w-full" id="resultsPanel">
+    <div class="w-full bg-surface-container-low border border-secondary-container p-8 md:p-12 text-center shadow-xl">
+      <div class="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center text-white" id="resultsBadgeIcon">
+        <span class="material-symbols-outlined text-4xl">emoji_events</span>
+      </div>
+      
+      <h2 class="font-headline-lg text-headline-lg text-primary mb-2" id="resultsStatusTitle">Hoàn thành thử thách!</h2>
+      <div class="text-6xl font-black text-primary my-6" id="resultsScoreVal">80/100</div>
+      <p class="font-body-lg text-on-surface-variant font-bold mb-4" id="resultsCorrectCountText">Trả lời đúng 8 trên 10 câu hỏi</p>
+      
+      <p class="font-body-md text-on-surface-variant leading-relaxed mb-8" id="resultsStatusDesc">
+        Chúc mừng bạn đã hoàn thành thử thách trắc nghiệm Dân chủ. Kết quả đã được hệ thống ghi nhận.
+      </p>
+
+      <!-- Question breakdown -->
+      <div class="text-left bg-surface-container p-6 rounded-lg mb-8 border border-outline-variant">
+        <h3 class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-4 pb-2 border-b border-outline-variant">Chi tiết câu hỏi</h3>
+        <div class="grid gap-3" id="breakdownContainer">
+          <!-- Dynamic items -->
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a class="px-8 py-3 bg-primary text-on-primary font-label-sm text-label-sm uppercase tracking-wider hover:bg-primary-container transition-all inline-flex items-center gap-2 justify-center" href="/lobby">
+          Trở về phòng chờ
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Simple Footer for Focused Task -->
+  <footer class="w-full py-8 mt-auto border-t border-secondary bg-inverse-surface text-secondary-fixed text-center font-label-sm text-xs">
+    © 2026 Tự Hào Việt — FPT University
+  </footer>
+
+  <div class="toast" id="quizToast" role="status" aria-live="polite"></div>
+
+  <script src="./quiz.js"></script>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const set = (s,t)=>{const e=document.querySelector(s);if(e)e.textContent=t};
+  set('h1','Dấu mốc lịch sử');
+});
+</script>
+</html>

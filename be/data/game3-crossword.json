@@ -1,0 +1,53 @@
+{
+  "title": "Giải mã thống nhất",
+  "subtitle": "Từ các dấu mốc lịch sử, tìm địa điểm ký kết hiệp định hòa bình năm 1973",
+  "hiddenKeyword": "PARIS",
+  "hiddenKeywordColIndex": 5,
+  "rows": [
+    {
+      "id": "row-0",
+      "rowIndex": 0,
+      "answer": "PHUOCLONG",
+      "highlightCol": 0,
+      "clue": "Tỉnh được giải phóng ngày 6–1–1975, tạo cơ sở đánh giá thời cơ chiến lược (9 chữ cái).",
+      "hint": "Bắt đầu bằng PHƯỚC…",
+      "context": "Chiến thắng Phước Long là một đòn thăm dò chiến lược quan trọng."
+    },
+    {
+      "id": "row-1",
+      "rowIndex": 1,
+      "answer": "MAUTHAN",
+      "highlightCol": 1,
+      "clue": "Tên gọi của Tết gắn với cuộc Tổng tiến công và nổi dậy năm 1968 (7 chữ cái).",
+      "hint": "Tên năm âm lịch, bắt đầu bằng MẬU…",
+      "context": "Tết Mậu Thân 1968 tạo bước ngoặt trong cuộc kháng chiến."
+    },
+    {
+      "id": "row-2",
+      "rowIndex": 2,
+      "answer": "TRUONGSON",
+      "highlightCol": 1,
+      "clue": "Dãy núi gắn với tuyến đường chiến lược chi viện từ Bắc vào Nam (9 chữ cái).",
+      "hint": "Bắt đầu bằng TRƯỜNG…",
+      "context": "Tuyến đường Trường Sơn giữ vai trò quan trọng trong chi viện chiến trường."
+    },
+    {
+      "id": "row-3",
+      "rowIndex": 3,
+      "answer": "HOCHIMINH",
+      "highlightCol": 4,
+      "clue": "Tên chiến dịch bắt đầu ngày 26–4–1975 để giải phóng Sài Gòn–Gia Định (9 chữ cái).",
+      "hint": "Chiến dịch mang tên Chủ tịch nước Việt Nam Dân chủ Cộng hòa đầu tiên.",
+      "context": "Chiến dịch Hồ Chí Minh mở màn ngày 26–4 và giành thắng lợi ngày 30–4–1975."
+    },
+    {
+      "id": "row-4",
+      "rowIndex": 4,
+      "answer": "SAIGON",
+      "highlightCol": 0,
+      "clue": "Thành phố được giải phóng ngày 30–4–1975, tên gọi tại thời điểm đó (6 chữ cái).",
+      "hint": "Gồm hai tiếng, bắt đầu bằng SÀI…",
+      "context": "Sài Gòn được giải phóng; cờ chiến thắng được cắm trên dinh Độc Lập lúc 11 giờ 30 phút."
+    }
+  ]
+}

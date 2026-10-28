@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Bảng Xếp Hạng | Tự Hào Việt</title>
+  
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="stylesheet" href="/vietfamily-theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-container": "#AE151B",
+            "inverse-surface": "#2A1C19",
+            "secondary-fixed-dim": "#B88729",
+            "tertiary-fixed-dim": "#F0A79B",
+            "surface-bright": "#FCF7ED",
+            "inverse-primary": "#F0A79B",
+            "secondary-fixed": "#FAE9B7",
+            "on-primary-fixed": "#2A1C19",
+            "on-primary-fixed-variant": "#8F1017",
+            "secondary-container": "#B88729",
+            "tertiary": "#8F1017",
+            "background": "#FCF7ED",
+            "on-tertiary-fixed-variant": "#8F1017",
+            "surface-dim": "#E7D8D2",
+            "primary-fixed-dim": "#F0A79B",
+            "surface-container-high": "#F1E7E2",
+            "on-primary": "#ffffff",
+            "surface-variant": "#E7D8D2",
+            "surface-container": "#FFFFFF",
+            "secondary": "#704811",
+            "on-tertiary-fixed": "#2A1C19",
+            "on-background": "#2A1C19",
+            "tertiary-fixed": "#F8E6DC",
+            "error": "#830D13",
+            "surface": "#FCF7ED",
+            "surface-container-highest": "#E7D8D2",
+            "outline-variant": "#E7D8D2",
+            "error-container": "#F8E6DC",
+            "on-error-container": "#8F1017",
+            "on-surface-variant": "#6F5750",
+            "on-tertiary": "#ffffff",
+            "on-secondary-container": "#704811",
+            "outline": "#C9B7B0",
+            "on-secondary-fixed": "#2A1C19",
+            "on-primary-container": "#FCF7ED",
+            "on-surface": "#2A1C19",
+            "tertiary-container": "#830D13",
+            "surface-container-low": "#FCF7ED",
+            "on-tertiary-container": "#FCF7ED",
+            "on-secondary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "surface-tint": "#AE151B",
+            "primary-fixed": "#F8E6DC",
+            "primary": "#AE151B",
+            "on-secondary-fixed-variant": "#704811",
+            "inverse-on-surface": "#FCEFEA",
+            "on-error": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "unit": "8px",
+            "margin-mobile": "16px",
+            "margin-desktop": "48px",
+            "gutter": "24px",
+            "container-max": "1200px"
+          },
+          "fontFamily": {
+            "label-sm": ["Hanken Grotesk"],
+            "headline-md": ["Bricolage Grotesque"],
+            "body-md": ["Hanken Grotesk"],
+            "headline-lg-mobile": ["Bricolage Grotesque"],
+            "headline-lg": ["Bricolage Grotesque"],
+            "headline-display": ["Bricolage Grotesque"],
+            "body-lg": ["Hanken Grotesk"]
+          },
+          "fontSize": {
+            "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "1.3", "fontWeight": "700"}],
+            "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+            "headline-display": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+    }
+    .parchment-bg {
+      background-color: #FCF7ED;
+      background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+    }
+    .star-divider::before, .star-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #AE151B;
+    }
+    
+    @keyframes pulse-green {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.5; }
+    }
+    .pulse-dot {
+      animation: pulse-green 2s infinite ease-in-out;
+    }
+    
+    .row-enter-active {
+      transition: background-color 1s ease;
+    }
+    .row-highlight {
+      background-color: rgba(254, 204, 0, 0.2) !important;
+    }
+  </style>
+  <style id="vf-base">
+    body { font-family: 'Hanken Grotesk', system-ui, -apple-system, sans-serif !important; background:#FCF7ED; color:#2A1C19; }
+    h1,h2,h3,h4,h5,h6 { font-family:'Bricolage Grotesque','Hanken Grotesk',system-ui,sans-serif !important; letter-spacing:-0.02em; }
+    button, .btn, [class*='rounded'] { font-family:'Hanken Grotesk',system-ui,sans-serif; }
+  </style>
+  <link rel="icon" type="image/svg+xml" href="/assets/vietfamily/favicon.svg">
+  <link rel="icon" type="image/jpeg" href="/assets/vietfamily/969fe005-c158-47c4-919f-cb258e14e66e.jpg">
+  <link rel="apple-touch-icon" href="/assets/vietfamily/969fe005-c158-47c4-919f-cb258e14e66e.jpg">
+<link rel="stylesheet" href="/tuhaoviet.css">
+</head>
+
+<body class="parchment-bg min-h-screen flex flex-col text-on-surface font-body-md">
+
+  <!-- TopNavBar -->
+  <header class="w-full top-0 sticky border-b border-secondary-container bg-surface-bright z-50">
+    <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+      <div class="flex items-center gap-4">
+        <a href="/lobby" aria-label="Lobby" class="hover:text-primary transition-colors p-2 flex items-center">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </a>
+        <h1 class="font-headline-md text-headline-md text-primary uppercase tracking-tighter">Bảng Xếp Hạng Tự Hào Việt</h1>
+      </div>
+      <!-- Live Sync Indicator -->
+      <div class="flex items-center gap-2 px-3 py-1.5 bg-green-500/10 border border-green-500/30 rounded-full">
+        <span class="w-2.5 h-2.5 bg-green-600 rounded-full pulse-dot"></span>
+        <span class="text-xs font-bold text-green-700 tracking-wide uppercase">Kết nối trực tiếp</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Leaderboard Content -->
+  <main class="flex-grow max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-desktop py-12">
+    
+    <!-- Title -->
+    <div class="text-center mb-12">
+      <h2 class="font-headline-display text-headline-display text-primary mb-4">Thành Viên Xuất Sắc</h2>
+      <div class="flex items-center justify-center gap-4 star-divider mb-2 max-w-sm mx-auto">
+        <span class="material-symbols-outlined text-secondary-fixed-dim" style="font-variation-settings: 'FILL' 1;">star</span>
+      </div>
+      <p class="font-body-lg text-body-lg text-on-surface-variant italic">Bảng xếp hạng tổng hợp kết quả học tập & rèn luyện thời gian thực</p>
+    </div>
+
+    <!-- Tab bar: overall + one per game -->
+    <div class="flex flex-wrap gap-2 justify-center mb-6" id="lbTabs"></div>
+
+    <!-- Leaderboard Card Container -->
+    <div class="bg-surface-container border border-secondary-container shadow-lg p-6 md:p-10 relative overflow-hidden">
+      <div class="overflow-x-auto" id="leaderboardTable">
+        <p class="py-12 text-center text-on-surface-variant italic">Đang tải bảng xếp hạng...</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full py-8 mt-auto border-t border-secondary bg-inverse-surface text-secondary-fixed text-center font-label-sm text-xs">
+    © 2026 Tự Hào Việt — FPT University
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tableEl = document.getElementById('leaderboardTable');
+      const tabsEl = document.getElementById('lbTabs');
+
+      const ROUNDS = [
+        { id: 'total', label: 'Tổng điểm' },
+        { id: 'quiz-dan-chu', label: 'Game 1' },
+        { id: 'o-chu-tu-than', label: 'Game 2' },
+        { id: 'thu-thach-tri-quoc', label: 'Game 3' }
+      ];
+
+      let latestList = [];
+      let currentView = 'total';
+
+      // Build the tab buttons
+      tabsEl.innerHTML = ROUNDS.map(r => `
+        <button data-view="${r.id}" class="lb-tab px-4 py-2 rounded-full text-xs md:text-sm font-bold border-2 transition-all">${r.label}</button>
+      `).join('');
+      tabsEl.querySelectorAll('.lb-tab').forEach(btn => {
+        btn.addEventListener('click', () => { currentView = btn.dataset.view; render(); });
+      });
+
+      function styleTabs() {
+        tabsEl.querySelectorAll('.lb-tab').forEach(btn => {
+          const active = btn.dataset.view === currentView;
+          btn.className = 'lb-tab px-4 py-2 rounded-full text-xs md:text-sm font-bold border-2 transition-all ' +
+            (active ? 'bg-primary text-on-primary border-primary' : 'bg-surface text-on-surface-variant border-outline-variant hover:border-primary');
+        });
+      }
+
+      // Connect to the SSE endpoint
+      const evtSource = new EventSource('/api/leaderboard/live');
+      evtSource.onmessage = (event) => {
+        try {
+          latestList = JSON.parse(event.data) || [];
+          render();
+        } catch (e) {
+          console.error('Lỗi phân tích dữ liệu bảng xếp hạng:', e);
+        }
+      };
+      evtSource.onerror = (err) => { console.error('SSE Error:', err); };
+
+      function rankSymbol(idx) {
+        if (idx === 0) return '<span class="material-symbols-outlined text-yellow-500 scale-125" style="font-variation-settings: \'FILL\' 1;">military_tech</span>';
+        if (idx === 1) return '<span class="material-symbols-outlined text-gray-400 scale-110" style="font-variation-settings: \'FILL\' 1;">military_tech</span>';
+        if (idx === 2) return '<span class="material-symbols-outlined text-amber-700 scale-100" style="font-variation-settings: \'FILL\' 1;">military_tech</span>';
+        return `<span class="font-bold text-on-surface-variant">${idx + 1}</span>`;
+      }
+
+      function render() {
+        styleTabs();
+        if (!latestList || latestList.length === 0) {
+          tableEl.innerHTML = '<p class="py-12 text-center text-on-surface-variant italic">Chưa có người chơi đăng ký tham gia.</p>';
+          return;
+        }
+        if (currentView === 'total') renderTotal(latestList);
+        else renderPerGame(latestList, currentView);
+      }
+
+      function renderTotal(list) {
+        const rows = list.map((p, idx) => {
+          const s1 = p.scores['quiz-dan-chu'] !== undefined ? p.scores['quiz-dan-chu'] : '-';
+          const s3 = p.scores['o-chu-tu-than'] !== undefined ? p.scores['o-chu-tu-than'] : '-';
+          const s4 = p.scores['thu-thach-tri-quoc'] !== undefined ? p.scores['thu-thach-tri-quoc'] : '-';
+          return `
+            <tr class="border-b border-outline-variant/30 text-sm even:bg-surface-container-low hover:bg-surface-container-high/40 transition-colors">
+              <td class="py-4 px-4 text-center">${rankSymbol(idx)}</td>
+              <td class="py-4 px-6 font-bold text-on-surface">${escapeHTML(p.fullName)}</td>
+              <td class="py-4 px-6 font-mono text-on-surface-variant">${escapeHTML(p.studentId)}</td>
+              <td class="py-4 px-4 text-center font-semibold text-primary">${s1}</td>
+              <td class="py-4 px-4 text-center font-semibold text-primary">${s3}</td>
+              <td class="py-4 px-4 text-center font-semibold text-primary">${s4}</td>
+              <td class="py-4 px-6 text-right font-black text-primary text-base">${p.totalScore}</td>
+              <td class="py-4 px-6 text-right font-medium text-on-surface-variant">${formatDuration(p.totalDuration)}</td>
+              <td class="py-4 px-6 text-right font-medium text-on-surface-variant whitespace-nowrap text-xs">${formatDate(p.lastCompletedAt)}</td>
+            </tr>`;
+        }).join('');
+        tableEl.innerHTML = `
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-outline-variant text-xs text-on-surface-variant font-bold uppercase tracking-wider">
+                <th class="py-4 px-4 text-center">Hạng</th>
+                <th class="py-4 px-6">Họ và Tên</th>
+                <th class="py-4 px-6">MSSV</th>
+                <th class="py-4 px-4 text-center">Game 1</th>
+                <th class="py-4 px-4 text-center">Game 2</th>
+                <th class="py-4 px-4 text-center">Game 3</th>
+                <th class="py-4 px-6 text-right">Tổng Điểm</th>
+                <th class="py-4 px-6 text-right">Thời Gian</th>
+                <th class="py-4 px-6 text-right">Hoàn Thành</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>`;
+      }
+
+      function renderPerGame(list, roundId) {
+        // Only players who have a score for this game, ranked by score desc then time asc.
+        const ranked = list
+          .filter(p => p.scores && p.scores[roundId] !== undefined)
+          .map(p => ({
+            fullName: p.fullName,
+            studentId: p.studentId,
+            score: p.scores[roundId],
+            duration: (p.durations && p.durations[roundId] !== undefined) ? p.durations[roundId] : 0
+          }))
+          .sort((a, b) => (b.score - a.score) || (a.duration - b.duration));
+
+        if (ranked.length === 0) {
+          tableEl.innerHTML = '<p class="py-12 text-center text-on-surface-variant italic">Chưa có ai hoàn thành cấp độ này.</p>';
+          return;
+        }
+
+        const rows = ranked.map((p, idx) => `
+          <tr class="border-b border-outline-variant/30 text-sm even:bg-surface-container-low hover:bg-surface-container-high/40 transition-colors">
+            <td class="py-4 px-4 text-center">${rankSymbol(idx)}</td>
+            <td class="py-4 px-6 font-bold text-on-surface">${escapeHTML(p.fullName)}</td>
+            <td class="py-4 px-6 font-mono text-on-surface-variant">${escapeHTML(p.studentId)}</td>
+            <td class="py-4 px-6 text-right font-black text-primary text-base">${p.score}</td>
+            <td class="py-4 px-6 text-right font-medium text-on-surface-variant">${formatDuration(p.duration)}</td>
+          </tr>`).join('');
+
+        tableEl.innerHTML = `
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-outline-variant text-xs text-on-surface-variant font-bold uppercase tracking-wider">
+                <th class="py-4 px-4 text-center">Hạng</th>
+                <th class="py-4 px-6">Họ và Tên</th>
+                <th class="py-4 px-6">MSSV</th>
+                <th class="py-4 px-6 text-right">Điểm</th>
+                <th class="py-4 px-6 text-right">Thời Gian</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>`;
+      }
+
+      function escapeHTML(value) {
+        return String(value || '')
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#039;');
+      }
+
+      function formatDuration(seconds) {
+        if (!seconds) return '0s';
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        return m > 0 ? `${m}m ${s}s` : `${s}s`;
+      }
+
+      function formatDate(isoString) {
+        if (!isoString) return '-';
+        const d = new Date(isoString);
+        return d.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Phòng Chờ Trò Chơi — Tự Hào Việt. Chọn thử thách và bắt đầu hành trình khám phá lịch sử Việt Nam giai đoạn 1965–1975.">
+  <title>Phòng Chờ Trò Chơi | Tự Hào Việt</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/vietfamily-theme.css">
+
+  <!-- Auth guard -->
+  <script>
+    (function () {
+      var AUTH_KEY = 'tuhaoviet_participant';
+      var GAME_KEY = 'currentParticipant';
+      try {
+        var p = JSON.parse(sessionStorage.getItem(AUTH_KEY)) ||
+                JSON.parse(sessionStorage.getItem(GAME_KEY));
+        if (!p || !p.id) window.location.replace('/auth');
+        else {
+          sessionStorage.setItem(AUTH_KEY, JSON.stringify(p));
+          sessionStorage.setItem(GAME_KEY, JSON.stringify(p));
+        }
+      } catch (e) { window.location.replace('/auth'); }
+    })();
+  </script>
+
+  <style>
+    /* ── Tokens (remapped to Tự Hào Việt palette) ── */
+    :root {
+      --primary:              #AE151B;
+      --primary-container:    #AE151B;
+      --on-primary:           #ffffff;
+      --secondary:            #704811;
+      --secondary-fixed:      #F8E6DC;
+      --secondary-fixed-dim:  #B88729;
+      --secondary-container:  #F8EDCC;
+      --on-secondary-container: #704811;
+      --on-secondary:         #ffffff;
+      --success:              #704811;
+      --surface:              #ffffff;
+      --surface-bright:       #FCF7ED;
+      --surface-dim:          #F1E7E2;
+      --surface-variant:      #E7D8D2;
+      --surface-container:    #ffffff;
+      --surface-container-low:#FCF7ED;
+      --surface-container-high:#FBEAE6;
+      --surface-container-highest:#F1E7E2;
+      --on-surface:           #2A1C19;
+      --on-surface-variant:   #6F5750;
+      --outline:              #C9B7B0;
+      --outline-variant:      #E7D8D2;
+      --inverse-surface:      #2A1C19;
+      --inverse-on-surface:   #FCEFEA;
+      --background:           #FCF7ED;
+
+      --font-headline: 'Bricolage Grotesque', 'Hanken Grotesk', system-ui, sans-serif;
+      --font-body:     'Hanken Grotesk', system-ui, sans-serif;
+      --font-display:  'Bricolage Grotesque', 'Hanken Grotesk', system-ui, sans-serif;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--background);
+      color: var(--on-surface);
+      min-height: 100svh;
+      display: flex; flex-direction: column;
+      background-image: url("https://www.transparenttextures.com/patterns/p6-dark.png");
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: inherit; border: none; background: none; }
+
+    /* ── Utils ── */
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block; vertical-align: middle;
+    }
+    .silk-texture {
+      background-image: url("https://www.transparenttextures.com/patterns/silk.png");
+      background-repeat: repeat;
+    }
+    .container { max-width: 1200px; margin-inline: auto; padding-inline: 48px; }
+    @media (max-width: 768px) { .container { padding-inline: 16px; } }
+
+    /* ── Navbar ── */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--surface-bright);
+      border-bottom: 2px solid var(--secondary-container);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .navbar__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1200px; margin-inline: auto;
+      padding: 1rem 48px;
+    }
+    @media (max-width: 768px) { .navbar__inner { padding: 1rem 16px; } }
+    .navbar__brand {
+      font-family: var(--font-headline);
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--primary); letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+    .navbar__links { display: flex; gap: 2.5rem; align-items: center; }
+    @media (max-width: 640px) { .navbar__links { display: none; } }
+    .navbar__links a {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--on-surface-variant);
+      transition: color 0.2s;
+    }
+    .navbar__links a:hover { color: var(--primary); }
+    .navbar__links a.active {
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 2px;
+    }
+    .navbar__actions { display: flex; gap: 0.75rem; align-items: center; }
+    .navbar__user {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.8rem; font-weight: 600; color: var(--on-surface-variant);
+    }
+    .navbar__logout {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em;
+      color: var(--primary); border: 1px solid var(--primary);
+      padding: 0.3rem 0.75rem; cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .navbar__logout:hover { background: var(--primary); color: var(--on-primary); }
+
+    /* ── Hero ── */
+    .lobby-hero { text-align: center; padding: 4rem 0 3rem; }
+    .lobby-hero__eyebrow {
+      display: inline-block;
+      border-top: 1px solid var(--primary); border-bottom: 1px solid var(--primary);
+      padding: 0.35rem 0;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--primary);
+      margin-bottom: 1.25rem;
+    }
+    .lobby-hero__title {
+      font-family: var(--font-headline);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700; font-style: italic;
+      color: var(--primary); line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .lobby-hero__sub {
+      font-size: 1.05rem; color: var(--on-surface-variant);
+      max-width: 38rem; margin-inline: auto; line-height: 1.65;
+    }
+
+    /* ── Player pill ── */
+    .player-pill {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--secondary-fixed); color: var(--on-secondary-container);
+      padding: 0.35rem 1rem; font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.04em; margin-bottom: 2rem;
+    }
+
+    /* ── Grid ── */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 5rem;
+    }
+    @media (max-width: 768px) { .games-grid { grid-template-columns: 1fr; } }
+
+    /* ── Game Cards ── */
+    .game-card {
+      position: relative; overflow: hidden;
+      padding: 2rem;
+      border: 1px solid var(--secondary-fixed);
+      background: var(--surface-container);
+      transition: transform 0.3s, border-color 0.3s;
+      display: flex; flex-direction: column;
+    }
+    .game-card:not(.game-card--locked):hover {
+      transform: translateY(-4px);
+      border-color: var(--primary-container);
+    }
+    .game-card--active {
+      border-color: var(--primary-container);
+      background: var(--surface-bright);
+      box-shadow: 0 2px 16px rgba(180,0,6,0.08);
+    }
+    .game-card--locked {
+      filter: grayscale(1); opacity: 0.7;
+      background: rgba(221,218,209,0.3);
+      border-color: var(--outline-variant);
+      cursor: not-allowed;
+    }
+    .game-card__silk {
+      position: absolute; inset: 0;
+      pointer-events: none; opacity: 0.07;
+    }
+
+    /* Card top row */
+    .game-card__top {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; margin-bottom: 1.25rem;
+    }
+    .game-card__level {
+      display: inline-block;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.2rem 0.75rem;
+      margin-bottom: 0.6rem;
+    }
+    .game-card__level--1 { background: var(--secondary-fixed); color: var(--on-secondary-container); }
+    .game-card__level--2 { background: var(--primary-container); color: var(--on-primary); }
+    .game-card__level--3,
+    .game-card__level--4 { background: var(--surface-variant); color: var(--on-surface-variant); }
+
+    .game-card__name {
+      font-family: var(--font-headline);
+      font-size: 1.6rem; font-weight: 700; line-height: 1.2;
+      color: var(--on-surface);
+    }
+
+    .badge {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.3rem 0.75rem;
+      white-space: nowrap; flex-shrink: 0; align-self: flex-start;
+    }
+    .badge .material-symbols-outlined { font-size: 0.85rem; }
+    .badge--done    { background: var(--primary);    color: var(--on-primary); }
+    .badge--active  { background: var(--secondary-container); color: var(--on-secondary-container); }
+    .badge--locked  { background: none; color: var(--on-surface-variant); }
+
+    /* ── Pulse animation for active badge ── */
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.55} }
+    .badge--active { animation: pulse 2s ease-in-out infinite; }
+
+    .game-card__desc {
+      font-size: 0.9375rem; color: var(--on-surface-variant);
+      line-height: 1.65; flex: 1; margin-bottom: 1.5rem;
+    }
+
+    /* Card footer */
+    .game-card__footer {
+      border-top: 1px solid var(--secondary-container);
+      padding-top: 1.25rem;
+    }
+    .game-card__footer--locked { border-color: var(--outline-variant); }
+
+    /* Done footer */
+    .footer-done {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-done__time {
+      display: flex; align-items: center; gap: 0.4rem;
+      color: var(--primary); font-weight: 600;
+    }
+    .btn-outline {
+      border: 1px solid var(--primary); color: var(--primary);
+      padding: 0.45rem 1.25rem;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      font-family: var(--font-body);
+    }
+    .btn-outline:hover { background: var(--primary); color: var(--on-primary); }
+    a.btn-outline { display: inline-block; }
+
+    /* Progress footer */
+    .footer-progress { display: flex; flex-direction: column; gap: 0.75rem; }
+    .footer-progress__labels {
+      display: flex; justify-content: space-between; align-items: flex-end;
+    }
+    .footer-progress__label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--primary);
+    }
+    .footer-progress__pct {
+      font-family: var(--font-headline); font-size: 1.4rem;
+      font-weight: 700; color: var(--primary); line-height: 1;
+    }
+    .progress-bar {
+      height: 6px; background: var(--surface-variant);
+      position: relative; overflow: hidden;
+    }
+    .progress-bar__fill {
+      position: absolute; inset-block: 0; left: 0;
+      background: var(--primary-container);
+      transition: width 0.6s ease;
+    }
+    .btn-primary {
+      width: 100%; padding: 0.85rem;
+      background: var(--primary-container); color: var(--on-primary);
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      transition: filter 0.2s;
+      font-family: var(--font-body);
+    }
+    .btn-primary:hover { filter: brightness(1.1); }
+    a.btn-primary { display: flex; }
+
+    /* Lock footer */
+    .footer-lock {
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .footer-lock__text {
+      font-size: 0.7rem; font-weight: 600; font-style: italic;
+      color: var(--primary);
+    }
+
+    /* ── Divider star ── */
+    .divider-star {
+      display: flex; align-items: center; gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .divider-star::before, .divider-star::after {
+      content: ""; flex: 1; height: 1px; background: var(--primary);
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--inverse-surface);
+      color: var(--secondary-fixed);
+      padding: 2rem 0;
+      margin-top: auto;
+      border-top: 1px solid var(--secondary);
+    }
+    footer .container { text-align: center; font-size: 0.8rem; opacity: 0.7; }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(16px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+    .fade-in { opacity: 0; }
+    .fade-in.visible { animation: fadeUp 0.6s ease forwards; }
+
+    /* ── Leaderboard summary panel ── */
+    .leaderboard-summary {
+      background: var(--surface-container);
+      border: 1px solid var(--secondary-container);
+      padding: 2.5rem;
+      margin: 4rem 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+    .leaderboard-summary__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--surface-variant);
+      padding-bottom: 1rem;
+    }
+    .leaderboard-summary__title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin: 0;
+    }
+    .leaderboard-summary__live-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #15803d;
+      background: rgba(22, 163, 74, 0.1);
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(22, 163, 74, 0.2);
+    }
+    .leaderboard-summary__pulse {
+      width: 8px;
+      height: 8px;
+      background: #16a34a;
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse-green 2s infinite ease-in-out;
+    }
+    @keyframes pulse-green {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.5; }
+    }
+    .leaderboard-summary__table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    .leaderboard-summary__th {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--on-surface-variant);
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--surface-variant);
+    }
+    .leaderboard-summary__tr {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      font-size: 0.9rem;
+    }
+    .leaderboard-summary__tr:last-child {
+      border-bottom: none;
+    }
+    .leaderboard-summary__td {
+      padding: 1rem;
+      color: var(--on-surface);
+    }
+    .leaderboard-summary__td--rank {
+      font-weight: 700;
+      width: 60px;
+      text-align: center;
+    }
+    .leaderboard-summary__td--name {
+      font-weight: 600;
+    }
+    .leaderboard-summary__td--score {
+      font-weight: 800;
+      color: var(--primary);
+      text-align: right;
+      font-size: 1rem;
+    }
+    .leaderboard-summary__footer {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .leaderboard-summary__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+    .leaderboard-summary__link:hover {
+      color: var(--primary-container);
+      border-bottom-color: var(--primary-container);
+    }
+
+    /* ── Tự Hào Việt look adjustments ── */
+    body { background-image: none !important; }
+    .navbar {
+      background: rgba(254, 247, 244, 0.85);
+      backdrop-filter: saturate(1.2) blur(8px);
+      border-bottom: 1px solid #F1E7E2;
+      box-shadow: none;
+    }
+    .navbar__brand { text-transform: none; letter-spacing: -0.02em; font-weight: 800; }
+    .navbar__logout { border-radius: 999px; }
+    .lobby-hero__title { font-style: normal; font-weight: 800; letter-spacing: -0.03em; }
+    .lobby-hero__eyebrow {
+      border: none; padding: 0;
+      font-family: var(--font-mono, ui-monospace, monospace);
+      letter-spacing: 0.12em; font-weight: 500;
+    }
+    .player-pill { border-radius: 999px; }
+    .game-card {
+      border-radius: 18px; border-color: #F1E7E2;
+      background: #fff; box-shadow: 0 2px 8px rgba(42,28,25,0.07);
+    }
+    .game-card--active { box-shadow: 0 10px 28px -10px rgba(42,28,25,0.16); }
+    .game-card__level, .badge, .btn-primary, .btn-outline { border-radius: 999px; }
+    .btn-primary { box-shadow: 0 2px 8px rgba(42,28,25,0.10); }
+    .leaderboard-summary { border-radius: 18px; border-color: #F1E7E2; box-shadow: 0 2px 8px rgba(42,28,25,0.07); }
+    .leaderboard-summary__title { font-weight: 800; letter-spacing: -0.02em; }
+    footer { background: var(--surface-ink, #2A1C19); }
+  </style>
+  <link rel="icon" type="image/svg+xml" href="/assets/vietfamily/favicon.svg">
+  <link rel="icon" type="image/jpeg" href="/assets/vietfamily/969fe005-c158-47c4-919f-cb258e14e66e.jpg">
+  <link rel="apple-touch-icon" href="/assets/vietfamily/969fe005-c158-47c4-919f-cb258e14e66e.jpg">
+<link rel="stylesheet" href="/tuhaoviet.css">
+</head>
+
+<body>
+
+  <!-- ── Navbar ── -->
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a class="navbar__brand" href="/">Tự Hào Việt</a>
+      <nav class="navbar__links">
+        <a href="/">Hành Trình</a>
+        <a href="/lobby" class="active">Phòng Chờ Trò Chơi</a>
+        <a href="#">Thư Viện</a>
+        <a href="/leaderboard">Vinh Danh</a>
+      </nav>
+      <div class="navbar__actions">
+        <div class="navbar__user">
+          <span class="material-symbols-outlined" style="font-size:1.2rem;">account_circle</span>
+          <span id="navPlayerName">—</span>
+        </div>
+        <button class="navbar__logout" id="logoutBtn">Đăng xuất</button>
+      </div>
+    </div>
+  </header>
+
+  <main style="flex:1;">
+    <div class="container">
+
+      <!-- ── Hero ── -->
+      <section class="lobby-hero fade-in">
+        <div class="lobby-hero__eyebrow">Chinh phục thử thách</div>
+        <h1 class="lobby-hero__title">Phòng Chờ Trò Chơi</h1>
+        <div id="playerPill" class="player-pill" style="display:none;">
+          <span class="material-symbols-outlined" style="font-size:0.9rem;">person</span>
+          <span id="pillName"></span>
+          &nbsp;·&nbsp;
+          <span id="pillMSSV"></span>
+        </div>
+        <p class="lobby-hero__sub">
+          Hoàn thành lần lượt ba trò chơi, tích điểm và chinh phục bảng xếp hạng.
+        </p>
+      </section>
+
+      <!-- ── Games Grid ── -->
+      <div id="gamesGrid" class="games-grid fade-in">
+        <!-- Dynamic game cards injected here -->
+      </div>
+
+      <!-- ── Leaderboard Summary Panel ── -->
+      <section class="leaderboard-summary fade-in">
+        <div class="leaderboard-summary__header">
+          <h2 class="leaderboard-summary__title">Top 5 Thành Viên Xuất Sắc</h2>
+          <div class="leaderboard-summary__live-indicator">
+            <span class="leaderboard-summary__pulse"></span>
+            <span>Trực tuyến</span>
+          </div>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="leaderboard-summary__table">
+            <thead>
+              <tr>
+                <th class="leaderboard-summary__th" style="text-align:center;">Hạng</th>
+                <th class="leaderboard-summary__th">Họ và Tên</th>
+                <th class="leaderboard-summary__th">MSSV</th>
+                <th class="leaderboard-summary__th" style="text-align:center;">Tiến trình</th>
+                <th class="leaderboard-summary__th" style="text-align:right;">Tổng Điểm</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboardSummaryRows">
+              <tr>
+                <td colspan="5" style="text-align:center; padding: 2rem; color: var(--on-surface-variant); italic">Đang tải bảng xếp hạng...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="leaderboard-summary__footer">
+          <a href="/leaderboard" class="leaderboard-summary__link">
+            Xem toàn bộ bảng xếp hạng
+            <span class="material-symbols-outlined" style="font-size: 1.1rem;">arrow_forward</span>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container">
+      © 2026 Tự Hào Việt — FPT University
+    </div>
+  </footer>
+
+  <script>
+    const AUTH_KEY = 'tuhaoviet_participant';
+    const GAME_KEY = 'currentParticipant';
+
+    // ── Load player info ──
+    function getParticipant() {
+      try {
+        return JSON.parse(sessionStorage.getItem(AUTH_KEY)) ||
+               JSON.parse(sessionStorage.getItem(GAME_KEY));
+      } catch { return null; }
+    }
+
+    const p = getParticipant();
+    if (p) {
+      document.getElementById('navPlayerName').textContent = p.fullName || p.studentId;
+      document.getElementById('pillName').textContent = p.fullName;
+      document.getElementById('pillMSSV').textContent  = p.studentId;
+      document.getElementById('playerPill').style.display = 'inline-flex';
+    }
+
+    // ── Logout ──
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      sessionStorage.removeItem(AUTH_KEY);
+      sessionStorage.removeItem(GAME_KEY);
+      window.location.href = '/auth';
+    });
+
+    // ── Scroll fade-in ──
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          e.target.style.animationDelay = (i * 0.08) + 's';
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.06 });
+
+    // ── Dynamic cards rendering ──
+    async function updateLobby() {
+      const p = getParticipant();
+      if (!p) return;
+
+      let freshParticipant = p;
+      try {
+        const res = await fetch('/api/participants');
+        const data = await res.json();
+        if (data.participants) {
+          const found = data.participants.find(x => x.id === p.id);
+          if (found) {
+            freshParticipant = found;
+            sessionStorage.setItem(AUTH_KEY, JSON.stringify(freshParticipant));
+            sessionStorage.setItem(GAME_KEY, JSON.stringify(freshParticipant));
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch fresh participant data:", err);
+      }
+
+      const completed = freshParticipant.completedRoundIds || [];
+      const game1Completed = completed.includes('quiz-dan-chu');
+      const game3Completed = completed.includes('o-chu-tu-than');
+      const game4Completed = completed.includes('thu-thach-tri-quoc');
+      // Sequential gating: a level unlocks only after the previous level is completed.
+      const game3Locked = !game1Completed;
+      const game4Locked = !game3Completed;
+
+      const grid = document.getElementById('gamesGrid');
+      grid.innerHTML = `
+        <!-- Card 1: Quiz Dân chủ -->
+        <div class="game-card ${game1Completed ? '' : 'game-card--active'}">
+          <div class="silk-texture game-card__silk"></div>
+          <div class="game-card__top">
+            <div>
+              <span class="game-card__level game-card__level--1">CẤP ĐỘ 01</span>
+              <h2 class="game-card__name">Dấu mốc lịch sử</h2>
+            </div>
+            ${game1Completed ? `
+              <div class="badge badge--done">
+                <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                Hoàn thành
+              </div>
+            ` : `
+              <div class="badge badge--active">
+                <span class="material-symbols-outlined" style="font-size:0.85rem;">hourglass_empty</span>
+                Đang diễn ra
+              </div>
+            `}
+          </div>
+          <p class="game-card__desc">Trả lời 5 câu hỏi về đường lối kháng chiến và những dấu mốc 1965–1975.</p>
+          <div class="game-card__footer">
+            ${game1Completed ? `
+              <div class="footer-done">
+                <div class="footer-done__time">
+                  <span class="material-symbols-outlined" style="color: var(--success); font-size:1.1rem; font-variation-settings:'FILL' 1;">check_circle</span>
+                  <span style="color: var(--success); font-weight:700;">Đã hoàn thành</span>
+                </div>
+                <a class="btn-outline" href="/quiz">Xem lại &rarr;</a>
+              </div>
+            ` : `
+              <a class="btn-primary" href="/quiz">
+                Bắt đầu thử thách
+                <span class="material-symbols-outlined" style="font-size:1rem;">play_arrow</span>
+              </a>
+            `}
+          </div>
+        </div>
+
+        <!-- Card 3: Ô Chữ Tu Thân -->
+        <div class="game-card ${game3Locked ? 'game-card--locked' : (game3Completed ? '' : 'game-card--active')}">
+          <div class="game-card__top">
+            <div>
+              <span class="game-card__level game-card__level--2" style="background: var(--primary-container); color: var(--on-primary);">CẤP ĐỘ 02</span>
+              <h2 class="game-card__name">Giải mã thống nhất</h2>
+            </div>
+            ${game3Locked ? `
+              <div class="badge badge--locked">
+                <span class="material-symbols-outlined">lock</span>
+              </div>
+            ` : (game3Completed ? `
+              <div class="badge badge--done">
+                <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                Hoàn thành
+              </div>
+            ` : `
+              <div class="badge badge--active">
+                <span class="material-symbols-outlined" style="font-size:0.85rem;">hourglass_empty</span>
+                Đang diễn ra
+              </div>
+            `)}
+          </div>
+          <p class="game-card__desc">Giải các hàng ngang lịch sử để tìm địa điểm ký kết hiệp định hòa bình năm 1973.</p>
+          <div class="game-card__footer ${game3Locked ? 'game-card__footer--locked' : ''}">
+            ${game3Locked ? `
+              <div class="footer-lock">
+                <span class="material-symbols-outlined" style="color:var(--primary);">info</span>
+                <span class="footer-lock__text">Mở khóa khi hoàn thành cấp độ 01</span>
+              </div>
+            ` : (game3Completed ? `
+              <div class="footer-done">
+                <div class="footer-done__time">
+                  <span class="material-symbols-outlined" style="color: var(--success); font-size:1.1rem; font-variation-settings:'FILL' 1;">check_circle</span>
+                  <span style="color: var(--success); font-weight:700;">Hoàn thành 100%</span>
+                </div>
+                <a class="btn-outline" href="/crossword">Xem lại &rarr;</a>
+              </div>
+            ` : `
+              <a class="btn-primary" href="/crossword">
+                Bắt đầu thử thách
+                <span class="material-symbols-outlined" style="font-size:1rem;">play_arrow</span>
+              </a>
+            `)}
+          </div>
+        </div>
+
+        <!-- Card 4: Thử Thách Trị Quốc -->
+        <div class="game-card ${game4Locked ? 'game-card--locked' : (game4Completed ? '' : 'game-card--active')}">
+          <div class="game-card__top">
+            <div>
+              <span class="game-card__level game-card__level--3" style="background: var(--surface-variant); color: var(--on-surface-variant);">CẤP ĐỘ 03</span>
+              <h2 class="game-card__name">Đường tới toàn thắng</h2>
+            </div>
+            ${game4Locked ? `
+              <div class="badge badge--locked">
+                <span class="material-symbols-outlined">lock</span>
+              </div>
+            ` : (game4Completed ? `
+              <div class="badge badge--done">
+                <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">check_circle</span>
+                Hoàn thành
+              </div>
+            ` : `
+              <div class="badge badge--active">
+                <span class="material-symbols-outlined" style="font-size:0.85rem;">hourglass_empty</span>
+                Đang diễn ra
+              </div>
+            `)}
+          </div>
+          <p class="game-card__desc">Vượt tám trạm về quyết sách chiến lược, sự kiện và hành trình tới mùa Xuân 1975.</p>
+          <div class="game-card__footer ${game4Locked ? 'game-card__footer--locked' : ''}">
+            ${game4Locked ? `
+              <div class="footer-lock">
+                <span class="material-symbols-outlined" style="color:var(--primary);">lock_clock</span>
+                <span class="footer-lock__text">Yêu cầu hoàn thành Cấp độ 02</span>
+              </div>
+            ` : (game4Completed ? `
+              <div class="footer-done">
+                <div class="footer-done__time">
+                  <span class="material-symbols-outlined" style="color: var(--success); font-size:1.1rem; font-variation-settings:'FILL' 1;">check_circle</span>
+                  <span style="color: var(--success); font-weight:700;">Hoàn thành 100%</span>
+                </div>
+                <a class="btn-outline" href="/challenge">Xem lại &rarr;</a>
+              </div>
+            ` : `
+              <a class="btn-primary" href="/challenge">
+                Bắt đầu thử thách
+                <span class="material-symbols-outlined" style="font-size:1rem;">play_arrow</span>
+              </a>
+            `)}
+          </div>
+        </div>
+      `;
+
+      // Trigger transition observers
+      document.querySelectorAll('#gamesGrid .game-card').forEach(el => {
+        el.classList.add('visible');
+      });
+      
+      // Hover lift effect
+      document.querySelectorAll('.game-card:not(.game-card--locked)').forEach(card => {
+        card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-4px)');
+        card.addEventListener('mouseleave', () => card.style.transform = '');
+      });
+    }
+
+    updateLobby();
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+    // ── Live Top 5 Leaderboard updates ──
+    const summaryRows = document.getElementById('leaderboardSummaryRows');
+    if (summaryRows) {
+      const leaderboardSource = new EventSource('/api/leaderboard/live');
+      
+      leaderboardSource.onmessage = (event) => {
+        try {
+          const list = JSON.parse(event.data);
+          const top5 = list.slice(0, 5);
+          
+          if (top5.length === 0) {
+            summaryRows.innerHTML = `
+              <tr>
+                <td colspan="5" style="text-align:center; padding: 2rem; color: var(--on-surface-variant); italic">Chưa có người chơi tham gia.</td>
+              </tr>
+            `;
+            return;
+          }
+          
+          summaryRows.innerHTML = top5.map((p, idx) => {
+            let medal = '';
+            if (idx === 0) medal = '🥇 ';
+            else if (idx === 1) medal = '🥈 ';
+            else if (idx === 2) medal = '🥉 ';
+            
+            const progressPct = Math.round((p.completedRoundsCount / 3) * 100);
+            
+            return `
+              <tr class="leaderboard-summary__tr" id="summary-row-${p.id}">
+                <td class="leaderboard-summary__td leaderboard-summary__td--rank">${medal || (idx + 1)}</td>
+                <td class="leaderboard-summary__td leaderboard-summary__td--name">${escapeHTML(p.fullName)}</td>
+                <td class="leaderboard-summary__td font-mono" style="color: var(--on-surface-variant);">${escapeHTML(p.studentId)}</td>
+                <td class="leaderboard-summary__td" style="text-align:center;">
+                  <div style="font-size: 0.8rem; font-weight:700; color: var(--secondary);">${p.completedRoundsCount}/3 cấp độ (${progressPct}%)</div>
+                </td>
+                <td class="leaderboard-summary__td leaderboard-summary__td--score">${p.totalScore}</td>
+              </tr>
+            `;
+          }).join('');
+        } catch (e) {
+          console.error('Error rendering summary leaderboard:', e);
+        }
+      };
+      
+      leaderboardSource.onerror = (err) => {
+        console.error('Lobby Leaderboard SSE Error:', err);
+      };
+    }
+
+    function escapeHTML(value) {
+      return String(value || '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+  </script>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const set = (s,t)=>{const e=document.querySelector(s);if(e)e.textContent=t};
+  set('h1','Phòng chờ thử thách');
+  set('p','Chọn trò chơi, tích điểm và chinh phục bảng xếp hạng.');
+});
+</script>
+</html>

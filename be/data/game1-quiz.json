@@ -1,0 +1,72 @@
+{
+  "title": "Dấu mốc lịch sử",
+  "subtitle": "Đường lối kháng chiến và hành trình thống nhất 1965–1975",
+  "description": "Trả lời 5 câu hỏi dựa trên tài liệu Lãnh đạo cách mạng cả nước 1965–1975.",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "Hội nghị Trung ương nào năm 1965 xác định quyết tâm kháng chiến chống Mỹ trên phạm vi cả nước?",
+      "options": [
+        "Hội nghị lần thứ 11 và 12",
+        "Hội nghị lần thứ 13 và 14",
+        "Hội nghị lần thứ 18 và 19",
+        "Hội nghị lần thứ 20 và 21"
+      ],
+      "answer": 0,
+      "context": "Hội nghị Trung ương lần thứ 11 (3–1965) và 12 (12–1965) xác định quyết tâm kháng chiến trên phạm vi cả nước."
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "question": "Trong cuộc kháng chiến, vai trò của miền Bắc được xác định như thế nào?",
+      "options": [
+        "Tiền tuyến lớn",
+        "Hậu phương lớn",
+        "Khu vực trung lập",
+        "Chỉ làm nhiệm vụ ngoại giao"
+      ],
+      "answer": 1,
+      "context": "Miền Bắc là hậu phương lớn, vừa xây dựng và bảo vệ miền Bắc vừa chi viện cho tiền tuyến miền Nam."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "Cuộc Tổng tiến công và nổi dậy Tết Mậu Thân diễn ra năm nào?",
+      "options": [
+        "1965",
+        "1972",
+        "1968",
+        "1973"
+      ],
+      "answer": 2,
+      "context": "Tết Mậu Thân 1968 tạo bước ngoặt, góp phần làm phá sản chiến lược Chiến tranh cục bộ."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "Hiệp định về chấm dứt chiến tranh, lập lại hòa bình ở Việt Nam được ký tại Paris vào ngày nào?",
+      "options": [
+        "30–4–1975",
+        "27–1–1973",
+        "2–9–1969",
+        "10–3–1975"
+      ],
+      "answer": 1,
+      "context": "Hiệp định Paris được ký ngày 27–1–1973, tạo thời cơ quan trọng để giải phóng hoàn toàn miền Nam."
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "question": "Chiến dịch nào mở đầu cuộc Tổng tiến công và nổi dậy mùa Xuân 1975?",
+      "options": [
+        "Chiến dịch Hồ Chí Minh",
+        "Chiến dịch Huế–Đà Nẵng",
+        "Chiến dịch Tây Nguyên",
+        "Chiến dịch Đường 9–Nam Lào"
+      ],
+      "answer": 2,
+      "context": "Cuộc Tổng tiến công mở đầu bằng Chiến dịch Tây Nguyên, với đòn tiến công Buôn Ma Thuột ngày 10–3–1975."
+    }
+  ]
+}

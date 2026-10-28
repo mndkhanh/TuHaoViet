@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Đăng nhập hoặc đăng ký tài khoản Tự Hào Việt.">
+  <title>Đăng Nhập | Tự Hào Việt</title>
+
+  <link rel="stylesheet" href="/vietfamily-theme.css">
+
+  <style>
+    /* ── Page layout ── */
+    main {
+      min-height: calc(100svh - 74px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 48px 20px;
+      background:
+        radial-gradient(1200px 480px at 50% -10%, var(--surface-mint), transparent 60%),
+        var(--bg-page);
+    }
+    .auth-wrapper { max-width: 30rem; width: 100%; animation: fadeUp 0.5s var(--ease-out) forwards; }
+
+    /* ── Header ── */
+    .auth-header { text-align: center; margin-bottom: 28px; }
+    .auth-header .vf-eyebrow { margin-bottom: 14px; }
+    .auth-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 2.6rem);
+      font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;
+      color: var(--text-strong);
+    }
+
+    /* ── Card ── */
+    .auth-card { padding: 34px; transition: opacity .3s, transform .3s; }
+    .auth-card.transitioning { opacity: 0; transform: translateY(10px); }
+
+    /* ── Forms ── */
+    .form-section { display: block; }
+    .form-section.hidden { display: none; }
+    .field { margin-bottom: 22px; }
+    .btn-submit { margin-top: 6px; }
+
+    .form-footer { margin-top: 24px; text-align: center; }
+    .form-footer p { font-size: 15px; color: var(--text-muted); }
+    .toggle-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--brand-strong); font-weight: 700; font-size: 15px;
+      margin-left: 4px; font-family: var(--font-sans); padding: 0;
+    }
+    .toggle-btn:hover { color: var(--brand); text-decoration: underline; }
+
+    /* ── Error ── */
+    .form-error {
+      background: var(--brand-subtle); color: var(--brand-strong);
+      padding: 12px 14px; font-size: 14px; border-radius: var(--radius-md);
+      margin-bottom: 20px; display: none;
+      border-left: 3px solid var(--brand);
+    }
+    .form-error.show { display: block; }
+
+    /* ── Bottom note ── */
+    .auth-note {
+      margin-top: 28px; text-align: center;
+      font-family: var(--font-mono);
+      font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-subtle);
+    }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      background: var(--surface-ink); color: var(--text-on-ink);
+      padding: 12px 22px; font-size: 14px; border-radius: var(--radius-pill);
+      z-index: 200; white-space: nowrap; box-shadow: var(--shadow-lg);
+      opacity: 0; transition: opacity .3s; pointer-events: none;
+    }
+    .toast.show { opacity: 1; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+  <link rel="icon" type="image/svg+xml" href="/assets/vietfamily/favicon.svg">
+  <link rel="icon" type="image/jpeg" href="/assets/vietfamily/969fe005-c158-47c4-919f-cb258e14e66e.jpg">
+  <link rel="apple-touch-icon" href="/assets/vietfamily/969fe005-c158-47c4-919f-cb258e14e66e.jpg">
+<link rel="stylesheet" href="/tuhaoviet.css">
+</head>
+
+<body class="vf">
+  <!-- Header -->
+  <header class="vf-header">
+    <div class="vf-header__inner">
+      <a class="vf-brand" href="/" title="Về trang chủ">
+        <span class="vf-brand__mark" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </span>
+        <span class="vf-brand__name">Viet<b>Family</b></span>
+      </a>
+      <nav class="vf-nav">
+        <a href="/">Trang chủ</a>
+        <a href="/leaderboard" class="vf-nav__hide-sm">Bảng vinh danh</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="auth-wrapper">
+
+      <!-- Header -->
+      <div class="auth-header">
+        <span class="vf-eyebrow">Tự Hào Việt</span>
+        <h1 class="auth-title">Vào phòng chơi</h1>
+      </div>
+
+      <!-- Card -->
+      <div class="auth-card vf-card" id="authCard">
+
+        <!-- Error banner -->
+        <div class="form-error" id="formError" role="alert"></div>
+
+        <!-- ── LOGIN FORM ── -->
+        <div class="form-section" id="loginSection">
+          <form id="loginForm" novalidate>
+            <div class="field vf-field">
+              <label class="vf-label" for="loginMSSV">Mã số sinh viên (MSSV)</label>
+              <input class="vf-input field-input" id="loginMSSV" name="studentId"
+                     type="text" placeholder="Nhập MSSV của bạn" autocomplete="off" required>
+            </div>
+
+            <button class="btn-submit vf-btn vf-btn--lg vf-btn--block" id="loginSubmit" type="submit">Đăng Nhập</button>
+          </form>
+
+          <div class="form-footer">
+            <p>
+              Chưa có tài khoản?
+              <button class="toggle-btn" type="button" onclick="showSignup()">Đăng ký ngay</button>
+            </p>
+          </div>
+        </div>
+
+        <!-- ── SIGNUP FORM ── -->
+        <div class="form-section hidden" id="signupSection">
+          <form id="signupForm" novalidate>
+            <div class="field vf-field">
+              <label class="vf-label" for="signupName">Họ và Tên</label>
+              <input class="vf-input field-input" id="signupName" name="fullName"
+                     type="text" placeholder="Nguyễn Văn A" autocomplete="name" required>
+            </div>
+            <div class="field vf-field">
+              <label class="vf-label" for="signupMSSV">Mã số sinh viên (MSSV)</label>
+              <input class="vf-input field-input" id="signupMSSV" name="studentId"
+                     type="text" placeholder="SE123456" autocomplete="off" required>
+            </div>
+
+            <button class="btn-submit vf-btn vf-btn--lg vf-btn--block" id="signupSubmit" type="submit">Tạo Tài Khoản</button>
+          </form>
+
+          <div class="form-footer">
+            <p>
+              Đã có tài khoản?
+              <button class="toggle-btn" type="button" onclick="showLogin()">Đăng nhập</button>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p class="auth-note">Sẵn sàng chơi · Tích điểm · Lên bảng xếp hạng</p>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    const STORAGE_KEY = 'tuhaoviet_participant';
+    const card        = document.getElementById('authCard');
+    const formError   = document.getElementById('formError');
+    const toast       = document.getElementById('toast');
+    let toastTimer;
+
+    // ── If already logged in, redirect ──
+    try {
+      const p = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
+      if (p && p.id) window.location.replace('/');
+    } catch {}
+
+    // ── Toast ──
+    function showToast(msg, ms = 3000) {
+      clearTimeout(toastTimer);
+      toast.textContent = msg;
+      toast.classList.add('show');
+      toastTimer = setTimeout(() => toast.classList.remove('show'), ms);
+    }
+
+    // ── Error ──
+    function showError(msg) {
+      formError.textContent = msg;
+      formError.classList.add('show');
+    }
+    function clearError() {
+      formError.classList.remove('show');
+    }
+
+    // ── Toggle animation ──
+    function transition(cb) {
+      card.classList.add('transitioning');
+      setTimeout(() => {
+        cb();
+        card.classList.remove('transitioning');
+        clearError();
+      }, 280);
+    }
+
+    function showLogin() {
+      transition(() => {
+        document.getElementById('signupSection').classList.add('hidden');
+        document.getElementById('loginSection').classList.remove('hidden');
+        document.getElementById('loginMSSV').focus();
+      });
+    }
+
+    function showSignup() {
+      transition(() => {
+        document.getElementById('loginSection').classList.add('hidden');
+        document.getElementById('signupSection').classList.remove('hidden');
+        document.getElementById('signupName').focus();
+      });
+    }
+
+    // ── API call ──
+    async function register(fullName, studentId) {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fullName, studentId })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Có lỗi xảy ra.');
+      return data.participant;
+    }
+
+    // ── Login ── (just MSSV; name fetched from backend or asked via signup)
+    document.getElementById('loginForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      clearError();
+      const studentId = document.getElementById('loginMSSV').value.trim().toUpperCase();
+      if (!studentId) { showError('Vui lòng nhập MSSV.'); return; }
+
+      const btn = document.getElementById('loginSubmit');
+      btn.disabled = true; btn.textContent = 'Đang kiểm tra...';
+
+      try {
+        // Try to log in: call register with studentId only.
+        // Backend will find existing participant. If not found yet, ask to sign up.
+        const res = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fullName: '', studentId })
+        });
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.error || 'MSSV không tồn tại trong hệ thống.');
+
+        // If fullName is empty it means this is a new account – tell them to register
+        if (!data.participant.fullName) {
+          showError('MSSV chưa được đăng ký. Vui lòng tạo tài khoản mới.');
+          showSignup();
+          return;
+        }
+
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data.participant));
+        showToast(`Chào mừng trở lại, ${data.participant.fullName}!`);
+        setTimeout(() => window.location.replace('/lobby'), 900);
+      } catch (err) {
+        showError(err.message);
+      } finally {
+        btn.disabled = false; btn.textContent = 'Đăng Nhập';
+      }
+    });
+
+    // ── Signup ──
+    document.getElementById('signupForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      clearError();
+      const fullName  = document.getElementById('signupName').value.trim();
+      const studentId = document.getElementById('signupMSSV').value.trim().toUpperCase();
+
+      if (!fullName)  { showError('Vui lòng nhập họ và tên.'); return; }
+      if (!studentId) { showError('Vui lòng nhập MSSV.'); return; }
+
+      const btn = document.getElementById('signupSubmit');
+      btn.disabled = true; btn.textContent = 'Đang tạo tài khoản...';
+
+      try {
+        const participant = await register(fullName, studentId);
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(participant));
+        showToast(`Chào mừng ${participant.fullName}! Đang chuyển trang...`);
+        setTimeout(() => window.location.replace('/lobby'), 900);
+      } catch (err) {
+        showError(err.message);
+      } finally {
+        btn.disabled = false; btn.textContent = 'Tạo Tài Khoản';
+      }
+    });
+
+    // ── Input focus effect ──
+    document.querySelectorAll('.field-input').forEach(input => {
+      input.addEventListener('focus', () => clearError());
+    });
+  </script>
+</body>
+</html>
