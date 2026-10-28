@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><title>Quản trị | Tự Hào Việt</title>
+  <link rel="stylesheet" href="/vietfamily-theme.css"><link rel="stylesheet" href="/tuhaoviet.css">
+  <link rel="stylesheet" href="/admin.css"><script src="/admin.js" defer></script>
+</head>
+<body class="vf">
+  <header class="admin-header"><a href="/">★ TỰ HÀO VIỆT</a><span>QUẢN TRỊ</span></header>
+  <main class="admin-main">
+    <p class="admin-eyebrow">QUẢN LÝ PHIÊN CHƠI</p><h1>Dữ liệu người chơi</h1>
+    <p class="admin-intro">Xóa dữ liệu khi muốn bắt đầu một lượt chơi mới.</p>
+    <section class="admin-count" aria-label="Thống kê người chơi"><div><span>Người chơi đã đăng ký</span><strong id="participantCount" aria-live="polite">—</strong></div><button type="button" id="refreshAdmin">Làm mới</button></section>
+    <section class="admin-danger" aria-labelledby="clearTitle">
+      <h2 id="clearTitle">Xóa toàn bộ dữ liệu người chơi</h2>
+      <p>Thao tác này xóa tất cả hồ sơ người chơi, điểm số, tiến độ và lịch sử lượt chơi đang lưu trên máy chủ. Bảng xếp hạng sẽ trở về trống.</p>
+      <p class="admin-warning">Không thể hoàn tác thao tác này. Nội dung trò chơi được giữ nguyên.</p>
+      <form id="clearDataForm">
+        <label for="clearConfirmation">Nhập <strong>XOA TAT CA</strong> để xác nhận</label>
+        <input id="clearConfirmation" name="confirmation" type="text" autocomplete="off" spellcheck="false" required aria-describedby="clearHelp">
+        <p id="clearHelp">Chỉ xóa khi bạn đã sẵn sàng bắt đầu lại cho tất cả người chơi.</p>
+        <button id="clearDataButton" type="submit" disabled>Xóa toàn bộ dữ liệu</button>
+      </form>
+    </section>
+    <p id="adminStatus" role="status" aria-live="polite"></p>
+    <a class="admin-back" href="/leaderboard">Xem bảng xếp hạng ↗</a>
+  </main>
+</body></html>

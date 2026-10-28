@@ -18,3 +18,15 @@ be/data/participants.json.tmp
 # Misc
 *.log
 .DS_Store
+
+# Inject secrets only at runtime.
+.env
+.env.*
+**/.env
+**/.env.*
+**/data/participants.json
+**/data/.deploy-stamp
+phat-work
+scratch
+.claude
+.agents

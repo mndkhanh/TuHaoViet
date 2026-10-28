@@ -1,22 +1,23 @@
-# fly.toml app configuration file generated for vietfamily on 2026-06-29T04:10:08Z
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
-app = 'vietfamily'
-primary_region = 'ams'
+app = 'tu-hao-viet'
+primary_region = 'sin'
+kill_signal = 'SIGTERM'
+kill_timeout = '10s'
 
 [build]
+  dockerfile = 'Dockerfile'
 
 [env]
-  # Participant data lives on the mounted volume, not in the ephemeral container
-  # filesystem, so scores survive restarts / scale-to-zero.
+  NODE_ENV = 'production'
+  PORT = '3000'
   DATA_DIR = '/data'
+  ADMIN_USERNAME = 'admin'
 
-# Persistent storage for participants.json.
-# Create once before deploying:  fly volumes create vietfamily_data --size 1 --region ams
-[mounts]
-  source = 'vietfamily_data'
+# JSON storage needs one Machine and one volume.
+[deploy]
+  strategy = 'immediate'
+
+[[mounts]]
+  source = 'tuhaoviet_data'
   destination = '/data'
 
 [http_service]
@@ -27,8 +28,14 @@ primary_region = 'ams'
   min_machines_running = 0
   processes = ['app']
 
+  [[http_service.checks]]
+    grace_period = '10s'
+    interval = '30s'
+    method = 'GET'
+    timeout = '5s'
+    path = '/api/health'
+
 [[vm]]
-  memory = '1gb'
+  memory = '256mb'
   cpu_kind = 'shared'
   cpus = 1
-  memory_mb = 256

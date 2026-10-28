@@ -176,9 +176,10 @@
   <link rel="icon" type="image/jpeg" href="/assets/vietfamily/969fe005-c158-47c4-919f-cb258e14e66e.jpg">
   <link rel="apple-touch-icon" href="/assets/vietfamily/969fe005-c158-47c4-919f-cb258e14e66e.jpg">
 <link rel="stylesheet" href="/tuhaoviet.css">
+<link rel="stylesheet" href="/mobile.css">
 </head>
 
-<body class="parchment-bg min-h-screen flex flex-col text-on-surface font-body-md">
+<body data-page="challenge" class="parchment-bg min-h-screen flex flex-col text-on-surface font-body-md">
 
   <!-- TopNavBar -->
   <header class="w-full top-0 sticky border-b border-secondary-container bg-surface-bright z-50">
@@ -228,7 +229,7 @@
     <div id="pieceTray" class="max-w-2xl mx-auto mb-10 flex items-center justify-center gap-2 flex-wrap"></div>
 
     <!-- Active Stage Panel Card -->
-    <div class="max-w-2xl mx-auto bg-surface-container border border-secondary-container p-8 md:p-12 shadow-md relative">
+    <div id="stageCard" class="max-w-2xl mx-auto bg-surface-container border border-secondary-container p-8 md:p-12 shadow-md relative">
       
       <!-- Stage Title & Instruction -->
       <div class="mb-8 border-b border-outline-variant pb-4">
@@ -243,14 +244,15 @@
         <!-- Injected via JS -->
       </div>
 
-      <!-- Action Panel & Input -->
+      <p id="stageHintText" class="row-question-hint" role="status" aria-live="polite" hidden></p>
+<!-- Action Panel & Input -->
       <div class="flex flex-col gap-4">
         <!-- Interactive Answers inputs -->
         <div id="stage-input-area" class="w-full">
           <!-- Injected text/number input depending on stage type -->
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-outline-variant/50">
+        <div class="stage-mobile-actions flex flex-col sm:flex-row gap-3 pt-4 border-t border-outline-variant/50">
           <button id="hintBtn" class="flex-shrink-0 border-2 border-secondary text-secondary font-bold px-6 py-3 uppercase tracking-wider hover:bg-secondary hover:text-white transition-all active:scale-95 hidden flex items-center justify-center gap-2">
             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
             Gợi ý

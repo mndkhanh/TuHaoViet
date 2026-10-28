@@ -196,9 +196,10 @@
   <link rel="icon" type="image/jpeg" href="/assets/vietfamily/969fe005-c158-47c4-919f-cb258e14e66e.jpg">
   <link rel="apple-touch-icon" href="/assets/vietfamily/969fe005-c158-47c4-919f-cb258e14e66e.jpg">
 <link rel="stylesheet" href="/tuhaoviet.css">
+<link rel="stylesheet" href="/mobile.css">
 </head>
 
-<body class="paper-grain text-on-surface min-h-screen flex flex-col font-body-md">
+<body data-page="quiz" class="paper-grain text-on-surface min-h-screen flex flex-col font-body-md">
 
   <!-- Top Navigation Header -->
   <header class="w-full top-0 sticky z-50 border-b border-secondary-container bg-surface-bright/90 backdrop-blur-md">
@@ -216,7 +217,7 @@
         </div>
         <div class="flex items-center gap-2 bg-secondary-container/20 px-4 py-2 rounded-lg border border-secondary-container">
           <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">timer</span>
-          <span class="font-label-sm text-label-sm text-on-surface" id="timer">05:00</span>
+          <span class="font-label-sm text-label-sm text-on-surface" id="timer">02:00</span>
         </div>
       </div>
     </div>
@@ -252,7 +253,7 @@
     </div>
 
     <!-- Navigation Actions -->
-    <div class="flex justify-between w-full mt-16 pt-8 border-t border-secondary-container">
+    <div class="quiz-mobile-actions flex justify-between w-full mt-16 pt-8 border-t border-secondary-container">
       <button class="flex items-center gap-2 px-8 py-3 border border-secondary text-secondary font-label-sm text-label-sm uppercase tracking-wider hover:bg-secondary-container/10 transition-all disabled:opacity-30 disabled:pointer-events-none" id="quizBackBtn">
         <span class="material-symbols-outlined">arrow_back</span>
         Câu trước

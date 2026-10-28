@@ -263,9 +263,10 @@
     />
   <link rel="stylesheet" href="/tuhaoviet.css">
 <link rel="stylesheet" href="/crossword-dialog.css">
+<link rel="stylesheet" href="/mobile.css">
 </head>
 
-  <body
+  <body data-page="crossword"
     class="parchment-bg min-h-screen flex flex-col text-on-surface font-body-md"
   >
     <!-- TopNavBar -->
@@ -372,9 +373,10 @@
 
       <!-- ===== WORKSPACE (answer grid) — TOP ===== -->
       <div
-        class="bg-surface-container p-4 md:p-5 border border-secondary-container shadow-sm overflow-x-auto mb-6"
+        class="crossword-scroll bg-surface-container p-4 md:p-5 border border-secondary-container shadow-sm overflow-x-auto mb-6"
       >
-        <!-- min-w-max keeps the scroll container aware of the grid's full width; without it,
+        <p class="mobile-scroll-note">Vuốt ngang để xem toàn bộ ô chữ. Nút câu hỏi luôn ở bên trái; bạn có thể nhập đáp án trong popup.</p>
+<!-- min-w-max keeps the scroll container aware of the grid's full width; without it,
            `justify-center` clips the overflowing cells and they can't be scrolled to. -->
         <div class="flex justify-center py-3 min-w-max">
           <div id="crossword-grid-container" class="grid gap-1.5 select-none">
@@ -499,5 +501,6 @@
       </form>
       <p class="row-question-timer-note">Thời gian chơi vẫn tiếp tục khi xem câu hỏi.</p>
     </dialog>
-  </body>
+  <script src="/mobile.js" defer></script>
+</body>
 </html>

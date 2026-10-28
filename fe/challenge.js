@@ -281,6 +281,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function showStation(index) {
     state.index = index;
     resetSelection();
+    document.getElementById('stageHintText').hidden = true;
+    document.getElementById('stageHintText').textContent = '';
     els.hintBtn.classList.add('hidden');
     els.stageContextBox.classList.add('hidden');
 
@@ -354,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const selected = s.type === 'single' ? (state.single === i) : state.multi.has(i);
             const cls = selected ? 'border-primary bg-secondary-container/20 text-primary' : 'border-outline-variant hover:border-primary';
             return `
-              <button type="button" data-opt="${i}" class="opt-btn group flex items-center gap-3 text-left p-4 border-2 ${cls} transition-all active:scale-[0.99] ${cleared ? 'pointer-events-none opacity-90' : ''}">
+              <button type="button" aria-pressed="${selected}" data-opt="${i}" class="opt-btn group flex items-center gap-3 text-left p-4 border-2 ${cls} transition-all active:scale-[0.99] ${cleared ? 'pointer-events-none opacity-90' : ''}">
                 <span class="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-full border-2 border-primary text-primary font-bold text-sm ${selected ? 'bg-primary text-on-primary' : ''}">${letter}</span>
                 <span class="font-body-md text-sm md:text-base text-on-surface">${escapeHTML(opt)}</span>
               </button>
@@ -518,7 +520,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!s || !s.hint) return;
     state.hintUsedCount++;
     updateScoreChip();
-    window.alert(`💡 GỢI Ý — TRẠM ${state.index + 1}:\n\n${s.hint}\n\n(Mỗi lần xem gợi ý trừ 15 điểm thưởng.)`);
+    const hintPanel = document.getElementById('stageHintText');
+    hintPanel.textContent = `${s.hint} (−15 điểm)`;
+    hintPanel.hidden = false;
     els.hintBtn.classList.add('hidden');
   }
 

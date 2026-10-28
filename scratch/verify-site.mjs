@@ -13,7 +13,7 @@ try {
   await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);server.once('exit',code=>reject(new Error(`Server exited: ${code}`)));});
   const get=async route=>{const response=await fetch('http://localhost:3088'+route);assert.equal(response.status,200,route);return response;};
   const post=async(route,body)=>{const response=await fetch('http://localhost:3088'+route,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});assert.equal(response.status,200,route);return response.json();};
-  for(const route of ['/','/auth','/lobby','/quiz','/crossword','/challenge','/leaderboard','/assets/tuhaoviet-hero.png','/tuhaoviet.css','/landing.js']) await get(route);
+  for(const route of ['/','/auth','/lobby','/quiz','/crossword','/challenge','/leaderboard','/assets/tuhaoviet-hero.png','/tuhaoviet.css','/landing.js','/mobile.css','/mobile.js','/crossword-dialog.css']) await get(route);
   for(const file of fs.readdirSync(path.join(root,'fe')).filter(name=>name.endsWith('.html'))) {
     const html=fs.readFileSync(path.join(root,'fe',file),'utf8');
     for(const match of html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)) if(match[1].trim()) new vm.Script(match[1],{filename:file});

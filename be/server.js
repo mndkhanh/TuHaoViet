@@ -3,6 +3,10 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
+// Local-only secrets; Fly injects the same keys as runtime secrets.
+const localEnvPath = path.join(__dirname, '.env');
+if (typeof process.loadEnvFile === 'function' && fs.existsSync(localEnvPath)) process.loadEnvFile(localEnvPath);
+
 const PORT = process.env.PORT || 3000;
 const ROOT = __dirname;
 // Serve the sibling fe/ folder in dev; fall back to local public/ for production deploys
@@ -16,35 +20,6 @@ const DATA_PATH = path.join(ROOT, 'data', 'game-data.json');
 // machine restarts / scale-to-zero. Locally it defaults to be/data as before.
 const DATA_DIR = process.env.DATA_DIR || path.join(ROOT, 'data');
 const PARTICIPANTS_PATH = path.join(DATA_DIR, 'participants.json');
-const DEPLOY_STAMP_PATH = path.join(DATA_DIR, '.deploy-stamp');
-
-// Fly sets these; FLY_MACHINE_VERSION changes on every deploy but NOT on stop/start.
-const IS_DEPLOYED = !!(process.env.FLY_APP_NAME || process.env.FLY_MACHINE_VERSION || process.env.FLY_IMAGE_REF);
-const DEPLOY_ID = process.env.FLY_MACHINE_VERSION || process.env.FLY_IMAGE_REF || 'local';
-
-// Each new deployment starts from an empty leaderboard; after that the volume keeps
-// the data across restarts until the next deploy. Never runs on a local machine.
-function resetParticipantsOnNewDeploy() {
-  try {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-    const previous = fs.existsSync(DEPLOY_STAMP_PATH)
-      ? fs.readFileSync(DEPLOY_STAMP_PATH, 'utf8').trim()
-      : null;
-
-    if (previous === DEPLOY_ID) {
-      console.log(`[data] Same deployment (${DEPLOY_ID}) — keeping existing participant data.`);
-      return;
-    }
-
-    const tempPath = `${PARTICIPANTS_PATH}.tmp`;
-    fs.writeFileSync(tempPath, JSON.stringify({ participants: [] }, null, 2), 'utf8');
-    fs.renameSync(tempPath, PARTICIPANTS_PATH);
-    fs.writeFileSync(DEPLOY_STAMP_PATH, DEPLOY_ID, 'utf8');
-    console.log(`[data] New deployment (${DEPLOY_ID}) — participants reset to empty.`);
-  } catch (error) {
-    console.error('[data] Deploy reset check failed:', error.message);
-  }
-}
 const QUIZ_DATA_PATH = path.join(ROOT, 'data', 'game1-quiz.json');
 const MATRIX_DATA_PATH = path.join(ROOT, 'data', 'game2-matrix.json');
 const CROSSWORD_DATA_PATH = path.join(ROOT, 'data', 'game3-crossword.json');
@@ -65,6 +40,7 @@ const attempts = []
 
 function ensureJsonFile(filePath, fallbackValue) {
   if (!fs.existsSync(filePath)) {
+    fs.mkdirSync(path.dirname(filePath), { recursive: true });
     fs.writeFileSync(filePath, JSON.stringify(fallbackValue, null, 2), 'utf8');
   }
 }
@@ -651,8 +627,84 @@ function markParticipantRoundCompleted(participantId, roundId, score = 0, durati
   return participant;
 }
 
+function sendAdminJson(res, statusCode, payload) {
+  res.writeHead(statusCode, {
+    'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store',
+    'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'DENY'
+  });
+  res.end(JSON.stringify(payload));
+}
+
+function requireAdmin(req, res) {
+  if (!process.env.ADMIN_PASSWORD) {
+    sendAdminJson(res, 503, { error: 'Chưa cấu hình ADMIN_PASSWORD cho máy chủ.' });
+    return false;
+  }
+  const header = req.headers.authorization || '';
+  let supplied = '';
+  if (header.startsWith('Basic ')) supplied = Buffer.from(header.slice(6), 'base64').toString('utf8');
+  const expected = `${process.env.ADMIN_USERNAME || 'admin'}:${process.env.ADMIN_PASSWORD}`;
+  const hash = value => crypto.createHash('sha256').update(value).digest();
+  if (!crypto.timingSafeEqual(hash(supplied), hash(expected))) {
+    res.setHeader('WWW-Authenticate', 'Basic realm="TuHaoViet Admin", charset="UTF-8"');
+    sendAdminJson(res, 401, { error: 'Vui lòng đăng nhập bằng tài khoản quản trị.' });
+    return false;
+  }
+  return true;
+}
+
+function requireAdminAction(req, res) {
+  // A custom header prevents cross-site forms from using cached Basic credentials.
+  // Admin endpoints deliberately do not emit public API CORS headers.
+  if (req.headers['x-admin-action'] !== 'clear-participants') {
+    sendAdminJson(res, 403, { error: 'Thiếu xác nhận thao tác quản trị.' });
+    return false;
+  }
+  if (req.headers.origin) {
+    try {
+      if (new URL(req.headers.origin).host !== req.headers.host) throw new Error('Origin mismatch');
+    } catch {
+      sendAdminJson(res, 403, { error: 'Nguồn yêu cầu không hợp lệ.' });
+      return false;
+    }
+  }
+  return true;
+}
+
+async function handleAdminApi(req, res, url) {
+  if (!requireAdmin(req, res)) return;
+  if (url.pathname === '/api/admin/status' && req.method === 'GET') {
+    sendAdminJson(res, 200, { participantCount: readParticipants().length });
+    return;
+  }
+  if (url.pathname === '/api/admin/participants' && req.method === 'DELETE') {
+    if (!requireAdminAction(req, res)) return;
+    try {
+      const body = await parseBody(req);
+      if (body.confirmation !== 'XOA TAT CA') {
+        sendAdminJson(res, 400, { error: 'Nhập chính xác XOA TAT CA để xác nhận.' });
+        return;
+      }
+      const count = readParticipants().length;
+      writeParticipants([]);
+      attempts.length = 0;
+      broadcastLeaderboard();
+      sendAdminJson(res, 200, { message: 'Đã xóa toàn bộ người chơi, điểm số và tiến độ.', deletedCount: count });
+    } catch (error) {
+      console.error('[admin] Clear participants failed:', error.message);
+      sendAdminJson(res, 500, { error: 'Không thể xóa dữ liệu. Vui lòng thử lại.' });
+    }
+    return;
+  }
+  sendAdminJson(res, 404, { error: 'Chức năng quản trị không tồn tại.' });
+}
+
 async function handleApi(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`);
+  if (url.pathname.startsWith('/api/admin/')) {
+    await handleAdminApi(req, res, url);
+    return;
+  }
   if (url.pathname === '/api/game/matrix' || url.pathname.startsWith('/api/game/matrix/') || url.pathname === '/api/submit/matrix') {
     sendJson(res, 410, { error: 'Trò tìm từ đã được gỡ bỏ.' });
     return;
@@ -748,6 +800,7 @@ async function handleApi(req, res) {
 
 
   if (req.method === 'DELETE' && url.pathname.startsWith('/api/participants/')) {
+    if (!requireAdmin(req, res) || !requireAdminAction(req, res)) return;
     const participantId = decodeURIComponent(url.pathname.replace('/api/participants/', '').trim());
     const deletedParticipant = deleteParticipantById(participantId);
 
@@ -1122,6 +1175,24 @@ async function handleApi(req, res) {
 
 const server = http.createServer((req, res) => {
   const requestedPath = new URL(req.url, `http://${req.headers.host}`).pathname;
+  if (['/admin', '/admin/', '/admin.html'].includes(requestedPath)) {
+    if (!requireAdmin(req, res)) return;
+    if (req.method !== 'GET' && req.method !== 'HEAD') {
+      sendAdminJson(res, 405, { error: 'Phương thức không được hỗ trợ.' });
+      return;
+    }
+    fs.readFile(path.join(PUBLIC_DIR, 'admin.html'), (error, data) => {
+      if (error) { sendAdminJson(res, 500, { error: 'Không tải được trang quản trị.' }); return; }
+      res.writeHead(200, {
+        'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store',
+        'X-Frame-Options': 'DENY', 'X-Content-Type-Options': 'nosniff',
+        'Referrer-Policy': 'no-referrer',
+        'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'none'"
+      });
+      res.end(req.method === 'HEAD' ? undefined : data);
+    });
+    return;
+  }
   if (['/matrix', '/matrix.html', '/matrix.js'].includes(requestedPath)) {
     res.writeHead(302, { Location: '/lobby' });
     res.end();
@@ -1215,10 +1286,8 @@ const server = http.createServer((req, res) => {
   serveStatic(req, res);
 });
 
-server.listen(PORT, () => {
-  // On a deployed machine, wipe the leaderboard once per deployment; afterwards the
-  // volume persists it across restarts. Local runs are never reset.
-  if (IS_DEPLOYED) resetParticipantsOnNewDeploy();
+server.listen(PORT, '0.0.0.0', () => {
+  // Participant data persists until explicitly cleared through the admin page.
   ensureJsonFile(PARTICIPANTS_PATH, { participants: [] });
   console.log(`Tự Hào Việt is running at http://localhost:${PORT} (data dir: ${DATA_DIR})`);
 });

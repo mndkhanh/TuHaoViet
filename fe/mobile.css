@@ -1,0 +1,153 @@
+/* Shared phone layouts. Load after page-specific and dialog styles. */
+button, a, input { touch-action: manipulation; }
+button:focus-visible, a:focus-visible { outline: 3px solid #b88729; outline-offset: 3px; }
+input, button, a { scroll-margin-block: 120px; }
+.mobile-scroll-note { display: none; }
+@media (max-width: 700px) {
+  html { scroll-padding-top: 140px; }
+  body { min-width: 0; }
+  main, header, footer, section, form { min-width: 0; }
+  input:not(.crossword-input), select, textarea { font-size: 16px; }
+  button, .button, .nav-cta, .vf-btn, .toggle-btn, .btn-primary, .btn-outline, .navbar__logout,
+  .site-header nav a, .vf-nav a, .navbar__links a, .site-footer a, .leaderboard-summary__link, .vf-brand, .navbar__brand { min-height: 44px; }
+  .navbar__brand { display: inline-flex; align-items: center; }
+  .nav-cta, .vf-nav a, .site-footer a { display: inline-flex; align-items: center; justify-content: center; }
+  button { white-space: normal; }
+  .toast { width: max-content; max-width: calc(100% - 32px); white-space: normal; text-align: center; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
+  footer { padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)); }
+
+  /* Keep play reachable without a tall hero forcing an extra screen of scroll. */
+  body[data-page="index"] .site-header { height: auto; min-height: 72px; flex-wrap: wrap; gap: 8px 16px; padding-block: 10px; }
+  body[data-page="index"] .site-header nav { display: flex; order: 3; width: 100%; justify-content: center; gap: 32px; }
+  body[data-page="index"] .site-header nav a { display: inline-flex; align-items: center; font-size: 13px; }
+  body[data-page="index"] .hero { min-height: 650px; }
+  body[data-page="index"] .hero-copy { padding-top: 32px; padding-bottom: 200px; }
+  body[data-page="index"] .hero h1 { font-size: clamp(35px, 9.3vw, 52px); overflow-wrap: anywhere; }
+  body[data-page="index"] .actions { align-items: stretch; }
+  body[data-page="index"] .actions > a { display: flex; align-items: center; justify-content: center; min-height: 48px; }
+  body[data-page="index"] .hero-foot { flex-wrap: wrap; font-size: 9px; }
+  body[data-page="index"] .hero-foot a { min-height: 44px; display: flex; align-items: center; }
+
+  /* Registration and lobby. */
+  body[data-page="auth"] .vf-header__inner { gap: 12px; flex-wrap: wrap; }
+  body[data-page="auth"] main { align-items: flex-start; padding: 28px 16px; }
+  body[data-page="auth"] .auth-card { padding: 24px 20px; }
+  body[data-page="auth"] .toggle-btn { padding: 8px; }
+  body[data-page="lobby"] .navbar__inner { flex-wrap: wrap; gap: 8px 12px; padding: 10px 16px; }
+  body[data-page="lobby"] .navbar__brand { font-size: 17px; }
+  body[data-page="lobby"] .navbar__actions { min-width: 0; gap: 10px; }
+  body[data-page="lobby"] .navbar__user { min-width: 0; }
+  body[data-page="lobby"] #navPlayerName { max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  body[data-page="lobby"] .navbar__logout { padding: 8px 12px; }
+  body[data-page="lobby"] .navbar__links { display: flex; order: 3; width: 100%; gap: 20px; flex-wrap: wrap; }
+  body[data-page="lobby"] .navbar__links a { display: inline-flex; align-items: center; font-size: 11px; }
+  body[data-page="lobby"] .lobby-hero { padding: 28px 0; }
+  body[data-page="lobby"] .game-card { padding: 22px; }
+  body[data-page="lobby"] .game-card__top { flex-wrap: wrap; gap: 12px; }
+  body[data-page="lobby"] .game-card__name { font-size: 24px; overflow-wrap: anywhere; }
+  body[data-page="lobby"] .btn-primary, body[data-page="lobby"] .btn-outline { font-size: 13px; padding: 12px 16px; }
+  body[data-page="lobby"] .leaderboard-summary { padding: 20px 12px; margin-block: 32px; }
+  body[data-page="lobby"] .leaderboard-summary__header { flex-wrap: wrap; gap: 12px; }
+  body[data-page="lobby"] .leaderboard-summary__title { font-size: 23px; }
+  body[data-page="lobby"] .leaderboard-summary__th, body[data-page="lobby"] .leaderboard-summary__td { padding: 12px 6px; overflow-wrap: anywhere; }
+  body[data-page="lobby"] .leaderboard-summary__table th:nth-child(3),
+  body[data-page="lobby"] .leaderboard-summary__tr td:nth-child(3),
+  body[data-page="lobby"] .leaderboard-summary__table th:nth-child(4),
+  body[data-page="lobby"] .leaderboard-summary__tr td:nth-child(4) { display: none; }
+
+  /* Two header rows preserve both title and game status at 320px. */
+  body[data-page="quiz"] > header > div,
+  body[data-page="crossword"] > header > div,
+  body[data-page="challenge"] > header > div,
+  body[data-page="leaderboard"] > header > div { flex-wrap: wrap; gap: 8px; padding: 8px 16px; }
+  body[data-page="quiz"] > header > div > div:first-child,
+  body[data-page="crossword"] > header > div > div:first-child,
+  body[data-page="challenge"] > header > div > div:first-child,
+  body[data-page="leaderboard"] > header > div > div:first-child { flex: 1 1 100%; min-width: 0; gap: 8px; }
+  body[data-page="quiz"] > header h1, body[data-page="crossword"] > header h1,
+  body[data-page="challenge"] > header h1, body[data-page="leaderboard"] > header h1 { font-size: 18px; line-height: 1.3; }
+  body[data-page="quiz"] > header a, body[data-page="crossword"] > header a,
+  body[data-page="challenge"] > header a, body[data-page="leaderboard"] > header a { min-width: 44px; min-height: 44px; justify-content: center; flex-shrink: 0; }
+  body[data-page="quiz"] > header > div > div:last-child,
+  body[data-page="crossword"] > header > div > div:last-child,
+  body[data-page="challenge"] > header > div > div:last-child { flex-wrap: wrap; gap: 8px; width: 100%; justify-content: flex-end; }
+  #scoreChip, #timerChip { max-width: 100%; }
+  #scoreChipVal { line-height: 1.4; }
+  body[data-page="quiz"] main, body[data-page="crossword"] #playPanel,
+  body[data-page="challenge"] #playPanel, body[data-page="leaderboard"] main { padding: 24px 16px; }
+  #gameTitle { font-size: 30px; line-height: 1.2; }
+  #gameSubtitle { font-size: 15px; }
+  #playPanel > .text-center { margin-bottom: 24px; }
+
+  /* Quiz navigation stays within a thumb's reach as answers scroll. */
+  #slidesContainer > section { margin-bottom: 24px; }
+  #slidesContainer > section > div { padding: 24px 18px; }
+  #slidesContainer h2 { font-size: 20px; line-height: 1.55; text-align: left; font-style: normal; }
+  #mcGrid { gap: 12px; margin-bottom: 24px; }
+  #mcGrid button { min-height: 64px; padding: 14px; }
+  #mcGrid button > span { width: 32px; height: 32px; margin-right: 12px; }
+  #quizContent > .custom-divider { display: none; }
+  .quiz-mobile-actions { position: sticky; bottom: 0; z-index: 20; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.35fr); gap: 10px; margin-top: 20px; padding: 12px 0 calc(12px + env(safe-area-inset-bottom, 0px)); background: #fcf7ed; }
+  .quiz-mobile-actions > div { min-width: 0; }
+  .quiz-mobile-actions button { width: 100%; min-height: 48px; padding: 10px 8px; justify-content: center; font-size: 12px; letter-spacing: 0; }
+  .quiz-mobile-actions button > span { font-size: 18px; }
+  #resultsPanel > div, #completionPanel > div { padding: 24px 18px; }
+
+  /* Native dialog responds to keyboard-reduced visual viewport. */
+  .row-question-trigger { height: 44px; min-height: 44px; }
+  .row-question-close { width: 44px; height: 44px; min-height: 44px; }
+  .row-question-dialog { top: var(--dialog-viewport-top, 12px); bottom: auto; margin: 0 auto; max-height: min(calc(100dvh - 24px), var(--dialog-viewport-height, 90dvh)); overscroll-behavior: contain; scroll-padding-block: 70px; }
+  .row-question-header { position: sticky; top: -22px; background: #fffbf3; z-index: 2; padding-block: 8px; }
+  .row-question-actions { position: sticky; bottom: -22px; background: #fffbf3; padding-block: 12px max(12px, env(safe-area-inset-bottom, 0px)); }
+  .row-question-actions button { min-height: 48px; }
+  .row-question-timer-note { margin-top: 8px; }
+  #keywordInput { min-width: 0; width: 100%; font-size: 16px; }
+  #submitKeywordBtn { min-width: 64px; padding-inline: 12px; }
+  .crossword-scroll { -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+  .mobile-scroll-note { display: block; font-size: 12px; color: #70594e; line-height: 1.6; margin: 0 0 12px; }
+
+  /* Eight stations fit without tiny overlapping labels. */
+  #step-nodes { gap: 4px; }
+  #step-nodes > div { flex: 1 1 0; min-width: 0; }
+  #step-nodes > div > span { display: none; }
+  #step-nodes > div > div { width: 28px; height: 28px; font-size: 11px; }
+  #pieceTray { gap: 5px; margin-bottom: 24px; }
+  #pieceTray > span:first-child { width: 100%; text-align: center; margin-bottom: 4px; }
+  #stageCard { padding: 20px 16px; }
+  #stageHintText { padding: 12px; margin-block: 12px; border-left: 3px solid #b88729; background: #f8edcc; color: #704811; font-size: 14px; line-height: 1.7; }
+  #stageInstruction { font-size: 20px; line-height: 1.5; }
+  #stage-body:empty { display: none; }
+  #stage-input-area .opt-btn { min-height: 60px; padding: 14px; }
+  #stage-input-area .tile-btn, #stage-input-area .blank-btn { min-height: 44px; }
+  #stage-input-area .opt-btn[aria-pressed="true"] { box-shadow: inset 0 0 0 1px #ae151b; }
+  .stage-mobile-actions { position: sticky; bottom: 0; z-index: 15; padding: 12px 0 calc(12px + env(safe-area-inset-bottom, 0px)); background: #fffdf8; }
+  #submitStageBtn, #hintBtn { min-height: 48px; padding-inline: 12px; font-size: 13px; letter-spacing: .02em; }
+
+  /* Keep rank, player, score and time on-screen; per-game tabs show details. */
+  body[data-page="leaderboard"] main > .text-center { margin-bottom: 24px; }
+  body[data-page="leaderboard"] main > .text-center h2 { font-size: 30px; }
+  body[data-page="leaderboard"] main > .text-center p { font-size: 14px; }
+  #lbTabs { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+  #lbTabs button { min-height: 44px; padding: 10px 12px; }
+  #leaderboardCard { padding: 16px 8px; }
+  #leaderboardTable table { width: 100%; table-layout: fixed; }
+  #leaderboardTable th, #leaderboardTable td { padding: 12px 5px; font-size: 12px; overflow-wrap: anywhere; white-space: normal; }
+  #leaderboardTable th:first-child, #leaderboardTable td:first-child { width: 40px; }
+  #leaderboardTable th:nth-last-child(2), #leaderboardTable td:nth-last-child(2) { width: 62px; }
+  #leaderboardTable th:nth-child(3), #leaderboardTable td:nth-child(3) { display: none; }
+  #leaderboardTable table[data-kind="total"] th:nth-child(4), #leaderboardTable table[data-kind="total"] td:nth-child(4),
+  #leaderboardTable table[data-kind="total"] th:nth-child(5), #leaderboardTable table[data-kind="total"] td:nth-child(5),
+  #leaderboardTable table[data-kind="total"] th:nth-child(6), #leaderboardTable table[data-kind="total"] td:nth-child(6),
+  #leaderboardTable table[data-kind="total"] th:nth-child(9), #leaderboardTable table[data-kind="total"] td:nth-child(9) { display: none; }
+  #leaderboardTable table[data-kind="total"] th:nth-child(7), #leaderboardTable table[data-kind="total"] td:nth-child(7) { width: 64px; }
+  #leaderboardTable table[data-kind="per-game"] th:nth-child(4), #leaderboardTable table[data-kind="per-game"] td:nth-child(4),
+  #leaderboardTable table[data-kind="per-game"] th:nth-child(5), #leaderboardTable table[data-kind="per-game"] td:nth-child(5) { width: 62px; }
+}
+@media (max-width: 360px) {
+  .site-header .logo { font-size: 13px; }
+  .site-header .nav-cta { font-size: 11px; padding-inline: 8px; }
+  body[data-page="lobby"] .navbar__actions { width: 100%; justify-content: space-between; }
+  body[data-page="lobby"] #navPlayerName { max-width: 180px; }
+  #keywordLockNote { align-items: flex-start; }
+  .row-question-dialog { padding: 18px; }
+}

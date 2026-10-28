@@ -139,9 +139,10 @@
   <link rel="icon" type="image/jpeg" href="/assets/vietfamily/969fe005-c158-47c4-919f-cb258e14e66e.jpg">
   <link rel="apple-touch-icon" href="/assets/vietfamily/969fe005-c158-47c4-919f-cb258e14e66e.jpg">
 <link rel="stylesheet" href="/tuhaoviet.css">
+<link rel="stylesheet" href="/mobile.css">
 </head>
 
-<body class="parchment-bg min-h-screen flex flex-col text-on-surface font-body-md">
+<body data-page="leaderboard" class="parchment-bg min-h-screen flex flex-col text-on-surface font-body-md">
 
   <!-- TopNavBar -->
   <header class="w-full top-0 sticky border-b border-secondary-container bg-surface-bright z-50">
@@ -169,14 +170,15 @@
       <div class="flex items-center justify-center gap-4 star-divider mb-2 max-w-sm mx-auto">
         <span class="material-symbols-outlined text-secondary-fixed-dim" style="font-variation-settings: 'FILL' 1;">star</span>
       </div>
-      <p class="font-body-lg text-body-lg text-on-surface-variant italic">Bảng xếp hạng tổng hợp kết quả học tập & rèn luyện thời gian thực</p>
+      <p class="font-body-lg text-body-lg text-on-surface-variant italic">Điểm số và thời gian hoàn thành của người chơi, cập nhật trực tiếp</p>
     </div>
 
-    <!-- Tab bar: overall + one per game -->
+    <p class="mobile-scroll-note">Chọn từng game để xem điểm riêng. Bảng tổng hiển thị điểm và thời gian của cả ba trò.</p>
+<!-- Tab bar: overall + one per game -->
     <div class="flex flex-wrap gap-2 justify-center mb-6" id="lbTabs"></div>
 
     <!-- Leaderboard Card Container -->
-    <div class="bg-surface-container border border-secondary-container shadow-lg p-6 md:p-10 relative overflow-hidden">
+    <div id="leaderboardCard" class="bg-surface-container border border-secondary-container shadow-lg p-6 md:p-10 relative overflow-hidden">
       <div class="overflow-x-auto" id="leaderboardTable">
         <p class="py-12 text-center text-on-surface-variant italic">Đang tải bảng xếp hạng...</p>
       </div>
@@ -267,7 +269,7 @@
             </tr>`;
         }).join('');
         tableEl.innerHTML = `
-          <table class="w-full text-left border-collapse">
+          <table data-kind="total" class="w-full text-left border-collapse">
             <thead>
               <tr class="border-b border-outline-variant text-xs text-on-surface-variant font-bold uppercase tracking-wider">
                 <th class="py-4 px-4 text-center">Hạng</th>
@@ -312,7 +314,7 @@
           </tr>`).join('');
 
         tableEl.innerHTML = `
-          <table class="w-full text-left border-collapse">
+          <table data-kind="per-game" class="w-full text-left border-collapse">
             <thead>
               <tr class="border-b border-outline-variant text-xs text-on-surface-variant font-bold uppercase tracking-wider">
                 <th class="py-4 px-4 text-center">Hạng</th>

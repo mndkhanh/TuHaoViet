@@ -197,7 +197,7 @@ function renderInteractiveArea(q) {
           const isSelected = ans === optIdx;
           const selectedClasses = isSelected ? 'bg-secondary-container/20 border-primary' : '';
           return `
-            <button class="group relative flex items-center p-6 bg-surface-container border border-outline-variant hover:border-primary transition-all duration-300 text-left active:scale-[0.98] ${selectedClasses}" data-opt-idx="${optIdx}">
+            <button class="group relative flex items-center p-6 bg-surface-container border border-outline-variant hover:border-primary transition-all duration-300 text-left active:scale-[0.98] ${selectedClasses}" aria-pressed="${isSelected}" data-opt-idx="${optIdx}">
               <span class="w-10 h-10 flex-shrink-0 flex items-center justify-center border border-primary text-primary font-bold mr-4 group-hover:bg-primary group-hover:text-on-primary transition-colors ${isSelected ? 'bg-primary text-on-primary' : ''}">${letter}</span>
               <p class="font-body-md text-on-surface group-hover:text-primary transition-colors ${isSelected ? 'text-primary' : ''}">${escapeHTML(opt)}</p>
             </button>

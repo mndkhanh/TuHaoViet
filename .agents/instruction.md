@@ -21,6 +21,8 @@ The former matrix game is removed. Do not restore its cards, routes or leaderboa
 Existing internal round IDs are retained for compatibility. Never expose answer keys in game GET payloads. The leaderboard uses server-sent events.
 
 ## Run and verify
+Admin: `/admin` uses HTTP Basic authentication, username `admin`, password from `ADMIN_PASSWORD`. Local secrets are in ignored `be/.env`; production uses Fly secrets. Destructive requests require an admin action header and typed confirmation. Never commit credentials or clear real participants during testing.
+Fly deployment instructions: `DEPLOY.md`. Use the root `fly.toml` only, one Machine in Singapore, and the persistent `/data` volume. Redeployments must preserve participants. Verify admin behavior with `node scratch/verify-admin.mjs` (isolated temporary data).
 Run node server.js from be/, then open http://localhost:3000.
 Run node scratch/verify-site.mjs from the project root for route and three-game flow checks. It uses a separate temporary runtime-data directory.
 The content maintenance script scratch/retheme-content.mjs regenerates the historical game datasets, and synchronizes fe/ to be/public/. Update that script if intentionally changing those datasets.
